@@ -1,5 +1,5 @@
 {
-  "homepage": "https://viniciusdepsouza.github.io/iToddy_Role",
+  "homepage": "github-page/",
   "name": "itoddy-role",
   "private": true,
   "version": "0.0.0",
@@ -13,11 +13,15 @@
     "deploy": "gh-pages -d dist"
   },
   "dependencies": {
+    "@hookform/resolvers": "^3.1.0",
+    "axios": "^1.4.0",
     "json-server": "^0.17.3",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "react-hook-form": "^7.43.9",
     "react-router-dom": "^6.11.2",
-    "styled-components": "^6.0.0-rc.2"
+    "styled-components": "^6.0.0-rc.2",
+    "yup": "^1.2.0"
   },
   "devDependencies": {
     "@types/react": "^18.0.28",

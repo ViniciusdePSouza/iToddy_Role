@@ -12,8 +12,15 @@ import { TextButton } from "../../components/TextButton";
 import { SvgButton } from "../../components/SvgButton";
 
 import closeSVG from "../../assets/closeWhite.svg";
+import { useNavigate } from "react-router-dom";
 
 export function SignIn() {
+  const navigate = useNavigate()
+
+  function handleGotoSignUp() {
+    navigate('/iToddy_Role/signup')
+  }
+
   return (
     <Container>
       <SvgWrapper>
@@ -26,7 +33,7 @@ export function SignIn() {
       </Paragraph>
       <ButtonsWrapper>
         <Button title="Fazer Login" isLoading={false} />
-        <Button title="Criar conta" variant="SECONDARY" isLoading={false} />
+        <Button title="Criar conta" variant="SECONDARY" isLoading={false} onClick={handleGotoSignUp} />
         <TextButton title="Esqueceu a senha ?" />
       </ButtonsWrapper>
     </Container>

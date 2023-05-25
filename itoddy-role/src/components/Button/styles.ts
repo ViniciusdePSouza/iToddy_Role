@@ -16,7 +16,12 @@ export const Container = styled.button<ButtonContainerProps>`
 
   all:unset;
 
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
   padding: 1.2rem 6rem;
+  margin-top: .8rem;
 
   font-size: 16px;
   line-height: 20px;
@@ -25,5 +30,7 @@ export const Container = styled.button<ButtonContainerProps>`
 
  ${(props) => `background: ${buttonVariantBackgroundColor[props.variant]}`};
 
-  border-radius: 20px
+  border-radius: 20px;
+
+  cursor: pointer;
 `;
