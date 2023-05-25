@@ -40,3 +40,10 @@ export const Title = styled.h2`
     font-family: 'Nunito', sans-serif;
     font-size: 1.8rem;
 `
+
+export const FormValidatorAdvisor = styled.p`
+    color: ${({theme}) => theme.COLORS.RED};
+
+    font-weight: 600;
+    font-size: 1.2rem;
+`

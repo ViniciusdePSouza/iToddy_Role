@@ -1,17 +1,23 @@
-import { Container, InputVariantColor } from "./styles"
+import { Container, InputVariantColor } from "./styles";
+import React, { forwardRef, InputHTMLAttributes } from "react";
 
-interface InputProps {
-    icon?: string
-    placeholder: string
-    variant?: InputVariantColor
-    type?: string
+interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
+  icon?: string;
+  variant?: InputVariantColor;
 }
 
-export function Input({ icon = "", variant = 'PRIMARY', placeholder, type = 'text', ...rest}: InputProps ) {
-    return(
-        <Container variant={variant}>
-            {icon && <img src={icon}/>}
-            <input placeholder={placeholder} type={type} {...rest}/>
-        </Container>
-    )
-}
+const Input = forwardRef<HTMLInputElement, InputProps>(
+  (
+    { icon = "", variant = "PRIMARY", placeholder, type = "text", ...rest },
+    ref
+  ) => {
+    return (
+      <Container variant={variant}>
+        {icon && <img src={icon} />}
+        <input ref={ref} placeholder={placeholder} type={type} {...rest} />
+      </Container>
+    );
+  }
+);
+
+export default Input;

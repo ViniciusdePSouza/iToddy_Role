@@ -30,5 +30,7 @@ export const Container = styled.button<ButtonContainerProps>`
 
  ${(props) => `background: ${buttonVariantBackgroundColor[props.variant]}`};
 
-  border-radius: 20px
+  border-radius: 20px;
+
+  cursor: pointer;
 `;
