@@ -2,9 +2,19 @@ import { styled } from "styled-components";
 
 export type SvgButtonVariantColor = "PRIMARY" | "SECONDARY";
 
+export type isRounded = "FullyRounded" |"Rounded" | 'NotRounded' 
+
 interface SvgButtonContainerProps {
     variant: SvgButtonVariantColor
+    rounded: isRounded
 }
+
+const buttonRadius = {
+  Rounded: '8px',
+  NotRounded: '0px',
+  FullyRounded: '100%'
+}
+
 
 const svgButtonVariantBorder = {
     PRIMARY: "none",
@@ -26,7 +36,6 @@ export const Container = styled.button<SvgButtonContainerProps>`
   background-color: transparent;
 
   ${(props) => `border: ${svgButtonVariantBorder[props.variant]}`};
-
-  border-radius: 8px;
+  ${(props) => `border-radius: ${buttonRadius[props.rounded]}`};
 
 `;

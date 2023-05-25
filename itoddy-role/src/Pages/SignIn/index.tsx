@@ -17,7 +17,7 @@ export function SignIn() {
   return (
     <Container>
       <SvgWrapper>
-        <SvgButton svg={closeSVG} variant="SECONDARY" />
+        <SvgButton svg={closeSVG} variant="SECONDARY" isRounded="Rounded" />
       </SvgWrapper>
 
       <Logo src={logo} alt="Logo Role" />
