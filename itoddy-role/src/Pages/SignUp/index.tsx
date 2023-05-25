@@ -1,4 +1,4 @@
-import  Input  from "../../components/Input";
+import Input from "../../components/Input";
 import { SvgButton } from "../../components/SvgButton";
 import { Container, Form, FormValidatorAdvisor, Header, Title } from "./styles";
 
@@ -9,6 +9,8 @@ import { useForm } from "react-hook-form";
 
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { api } from "../../services/api";
+import { useNavigate } from "react-router-dom";
 
 const registerFormSchema = z
   .object({
@@ -19,12 +21,15 @@ const registerFormSchema = z
       .string()
       .min(6, "A senha deve ter no mínimo 6 caracteres"),
   })
-  .refine(({ confirmPassword, password }) => {
-    if (confirmPassword !== password) {
-      return false;
-    }
-    return true;
-  }, { message: "A confirmação de senha não bate" });
+  .refine(
+    ({ confirmPassword, password }) => {
+      if (confirmPassword !== password) {
+        return false;
+      }
+      return true;
+    },
+    { message: "A confirmação de senha não bate" }
+  );
 
 type RegisterFormData = z.infer<typeof registerFormSchema>;
 
@@ -37,8 +42,22 @@ export function SignUp() {
     resolver: zodResolver(registerFormSchema),
   });
 
-  async function handleRegisterProducer(data: RegisterFormData) {
-    console.log(data);
+  const navigate = useNavigate()
+
+  async function handleRegisterProducer({
+    name,
+    email,
+    password,
+  }: RegisterFormData) {
+    try {
+      await api.post("/users", { name, email, password });
+
+      alert("Conta criada com sucesso");
+
+      navigate('/iToddy_Role')
+    } catch (error) {
+      console.log(error);
+    }
   }
 
   return (
