@@ -41,7 +41,7 @@ export function Login() {
     resolver: zodResolver(loginFormSchema),
   });
 
-  const navigate = useNavigate
+  const navigate = useNavigate()
 
   const { saveCurrentProducerInContext } = useContext(ProducerContext)
 
@@ -54,7 +54,7 @@ export function Login() {
     if (doesProducerExists.length > 0){ 
         saveCurrentProducerInContext(doesProducerExists)
 
-        navigate()
+       await navigate('/iToddy_Role/home-producer')
     }else {
        alert('Senha ou usuário incorreto, tente novamente')
     }
