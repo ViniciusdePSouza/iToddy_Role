@@ -1,6 +1,6 @@
 import { styled } from "styled-components";
 
-export type ButtonVariantColor = "PRIMARY" | "SECONDARY";
+export type ButtonVariantColor = "PRIMARY" | "SECONDARY" | "TERTIARY";
 
 interface ButtonContainerProps {
   variant: ButtonVariantColor;
@@ -9,7 +9,14 @@ interface ButtonContainerProps {
 const buttonVariantBackgroundColor = {
   PRIMARY: "linear-gradient(15deg, #9D6DE7 0%, #431E8E 57.92%, #1E0D3F 100%);",
   SECONDARY: "rgba(42, 35, 55, 0.8)",
+  TERTIARY: "#FFFF"
 };
+
+const buttonVariantTextColor = {
+  PRIMARY: '#F8F5F9',
+  SECONDARY:  '#F8F5F9',
+  TERTIARY:  '#431E8E'
+}
 
 export const Container = styled.button<ButtonContainerProps>`
   width: 100%;
@@ -25,10 +32,10 @@ export const Container = styled.button<ButtonContainerProps>`
 
   font-size: 16px;
   line-height: 20px;
+  
+  ${(props) => `color: ${buttonVariantTextColor[props.variant]}`};
 
-  color: ${({ theme }) => theme.COLORS.WHITE_100};
-
- ${(props) => `background: ${buttonVariantBackgroundColor[props.variant]}`};
+  ${(props) => `background: ${buttonVariantBackgroundColor[props.variant]}`};
 
   border-radius: 20px;
 

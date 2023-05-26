@@ -33,6 +33,7 @@ export function Login() {
           title="Entrar"
           isLoading={false}
           onClick={handleLogin}
+          variant="TERTIARY"
         />
         <TextButton title="Esqueceu a senha ?" />
       </ButtonsWrapper>
