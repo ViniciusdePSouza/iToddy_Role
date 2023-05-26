@@ -9,7 +9,9 @@ import { useForm } from "react-hook-form";
 
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
+
 import { api } from "../../services/api";
+
 import { useNavigate } from "react-router-dom";
 
 const registerFormSchema = z

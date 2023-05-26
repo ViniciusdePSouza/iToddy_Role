@@ -40,3 +40,20 @@ export const ButtonsWrapper = styled.div`
   align-items: center;
   justify-content: space-between;
 `;
+
+export const FormValidatorAdvisor = styled.p`
+  color: ${({ theme }) => theme.COLORS.RED};
+
+  font-weight: 600;
+  font-size: 1.2rem;
+`;
+export const Form = styled.form`
+  width: 100%;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  gap: 1rem;
+`;

@@ -50,5 +50,14 @@ export const Container = styled.div<InputContainerProps>`
 
       font-size: 1.6rem;
     }
+
+    &:focus {
+      ${(props) => `background: ${inputVariantBackgroundColor[props.variant]}`};
+      ${(props) => `color: ${textVariantColors[props.variant]}`};
+
+      ${(props) => `border: ${borderVariantColors[props.variant]}`};
+
+      outline: none;
+    }
   }
 `;
