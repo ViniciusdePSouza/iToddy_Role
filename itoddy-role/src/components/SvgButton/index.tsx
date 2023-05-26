@@ -1,6 +1,7 @@
 import { Container, SvgButtonVariantColor, isRounded } from "./styles";
+import { ButtonHTMLAttributes } from "react";
 
-interface SvgButtonProps {
+interface SvgButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   variant?: SvgButtonVariantColor;
   svg: string;
   isRounded?: isRounded

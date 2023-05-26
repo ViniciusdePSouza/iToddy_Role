@@ -4,13 +4,17 @@ import { GlobalStyle } from "./styles/global";
 import { Router } from "./Router";
 import { BrowserRouter } from "react-router-dom";
 
+import { ProducerProvider } from "./Context/ProducerContext";
+
 export function App() {
   return (
     <ThemeProvider theme={defaultTheme}>
-      <BrowserRouter>
-        <Router />
-      </BrowserRouter>
-      <GlobalStyle />
+      <ProducerProvider>
+        <BrowserRouter>
+          <Router />
+        </BrowserRouter>
+        <GlobalStyle />
+      </ProducerProvider>
     </ThemeProvider>
   );
 }

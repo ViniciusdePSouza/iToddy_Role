@@ -21,6 +21,10 @@ export function SignIn() {
     navigate('/iToddy_Role/signup')
   }
 
+  function handleGoToLogin() {
+    navigate('/iToddy_Role/login')
+  }
+
   return (
     <Container>
       <SvgWrapper>
@@ -32,7 +36,7 @@ export function SignIn() {
         Aqui você divulga o seu evento e alcança o seu público de verdade.
       </Paragraph>
       <ButtonsWrapper>
-        <Button title="Fazer Login" isLoading={false} />
+        <Button title="Fazer Login" isLoading={false} onClick={handleGoToLogin}/>
         <Button title="Criar conta" variant="SECONDARY" isLoading={false} onClick={handleGotoSignUp} />
         <TextButton title="Esqueceu a senha ?" />
       </ButtonsWrapper>

@@ -9,7 +9,9 @@ import { useForm } from "react-hook-form";
 
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
+
 import { api } from "../../services/api";
+
 import { useNavigate } from "react-router-dom";
 
 const registerFormSchema = z
@@ -44,6 +46,10 @@ export function SignUp() {
 
   const navigate = useNavigate()
 
+  function handleGoBack(){
+    navigate(-1)
+  }
+
   async function handleRegisterProducer({
     name,
     email,
@@ -66,7 +72,7 @@ export function SignUp() {
         <Title>Criar conta como produtor(a)</Title>
 
         <div>
-          <SvgButton svg={closeIcon} />
+          <SvgButton svg={closeIcon} onClick={handleGoBack}/>
         </div>
       </Header>
 

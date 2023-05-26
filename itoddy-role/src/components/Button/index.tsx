@@ -1,6 +1,7 @@
 import { ButtonVariantColor, Container } from "./styles"
+import { ButtonHTMLAttributes } from "react";
 
-interface ButtonProps {
+interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement>{
     title: string
     variant?: ButtonVariantColor
     picture?: string
