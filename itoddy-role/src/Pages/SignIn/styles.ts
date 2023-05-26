@@ -25,7 +25,7 @@ export const ButtonsWrapper = styled.div`
     gap: 1.6rem;
 `
 export const SvgWrapper = styled.div`
-  width: 44px;
+  width: 4.4rem;
   height: 44px;
   
   display: flex;
