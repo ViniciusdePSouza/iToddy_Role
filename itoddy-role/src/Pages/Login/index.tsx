@@ -21,6 +21,9 @@ import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 
 import { useForm } from "react-hook-form";
+import { useContext } from "react";
+import { ProducerContext } from "../../Context/ProducerContext";
+import { useNavigate } from "react-router-dom";
 
 const loginFormSchema = z.object({
   email: z.string().email("Email inválido"),
@@ -38,8 +41,25 @@ export function Login() {
     resolver: zodResolver(loginFormSchema),
   });
 
-  async function handleLogin(data: LoginFormData) {
-    await console.log(data);
+  const navigate = useNavigate
+
+  const { saveCurrentProducerInContext } = useContext(ProducerContext)
+
+  async function handleLogin({ email, password }: LoginFormData) {
+    
+    const { data } = await api.get(`/users?email=${email}&password=${password}`);
+
+    const doesProducerExists = data
+
+    if (doesProducerExists.length > 0){ 
+        saveCurrentProducerInContext(doesProducerExists)
+
+        navigate()
+    }else {
+       alert('Senha ou usuário incorreto, tente novamente')
+    }
+      
+    return
   }
 
   return (
