@@ -45,6 +45,10 @@ export function Login() {
 
   const { saveCurrentProducerInContext } = useContext(ProducerContext)
 
+  function handleGoBack() {
+    navigate(-1)
+  }
+
   async function handleLogin({ email, password }: LoginFormData) {
     
     const { data } = await api.get(`/users?email=${email}&password=${password}`);
@@ -65,7 +69,7 @@ export function Login() {
   return (
     <Container>
       <SvgWrapper>
-        <SvgButton svg={closeSVG} variant="SECONDARY" isRounded="Rounded" />
+        <SvgButton svg={closeSVG} variant="SECONDARY" isRounded="Rounded" onClick={handleGoBack}/>
       </SvgWrapper>
 
       <Logo src={logo} alt="Logo Role" />

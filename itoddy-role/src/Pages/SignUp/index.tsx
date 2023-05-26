@@ -47,7 +47,7 @@ export function SignUp() {
   const navigate = useNavigate()
 
   function handleGoBack(){
-    navigate('/iToddy_Role')
+    navigate(-1)
   }
 
   async function handleRegisterProducer({

@@ -23,8 +23,8 @@ export const Logo = styled.img`
 `;
 
 export const SvgWrapper = styled.div`
-  width: 4.4rem;
-  height: 4.4rem;
+  width: 44px;
+  height: 44px;
 
   display: flex;
   align-self: end;
