@@ -44,6 +44,10 @@ export function SignUp() {
 
   const navigate = useNavigate()
 
+  function handleGoBack(){
+    navigate('/iToddy_Role')
+  }
+
   async function handleRegisterProducer({
     name,
     email,
@@ -66,7 +70,7 @@ export function SignUp() {
         <Title>Criar conta como produtor(a)</Title>
 
         <div>
-          <SvgButton svg={closeIcon} />
+          <SvgButton svg={closeIcon} onClick={handleGoBack}/>
         </div>
       </Header>
 
