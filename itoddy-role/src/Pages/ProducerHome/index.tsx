@@ -25,6 +25,7 @@ import event2 from "../../assets/Events/Evento2.png";
 import event3 from "../../assets/Events/Evento3.png";
 
 export function ProducerHome() {
+
   return (
     <>
       <HomeProducerHeader>
@@ -43,8 +44,8 @@ export function ProducerHome() {
         <TabRoot defaultValue="tab1">
           <TabList aria-label="Gerencie seus eventos">
             <TabTriggerWrapper>
-              <TabTrigger value="tab1">A seguir</TabTrigger>
-              <TabTrigger value="tab2">Eventos passados</TabTrigger>
+            <TabTrigger value="tab1">A seguir</TabTrigger>
+            <TabTrigger value="tab2">Eventos passados</TabTrigger>
             </TabTriggerWrapper>
             <TabContent value="tab1">
               <EventBanner

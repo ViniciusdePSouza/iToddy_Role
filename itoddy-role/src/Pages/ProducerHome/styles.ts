@@ -85,6 +85,10 @@ export const TabContent = styled(Tabs.Content)`
   justify-content: center;
 
   gap: 1.6rem;
+
+  @media (min-width: 768px) {
+    flex-direction: row
+  }
 `;
 
 export const HomeProducerHeader = styled.header`
