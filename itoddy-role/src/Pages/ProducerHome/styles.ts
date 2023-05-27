@@ -40,15 +40,26 @@ export const NavButtonWrapper = styled.div`
 export const TabRoot = styled(Tabs.Root)`
   margin-top: 1.2rem;
 `;
+
 export const TabList = styled(Tabs.List)`
   width: 100%;
 
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-evenly;
+
+  gap: 2.4rem;
+`;
+
+export const TabTriggerWrapper = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-evenly;
 
   gap: 2.4rem;
 `;
+
 export const TabTrigger = styled(Tabs.Trigger)`
   all: unset;
 
@@ -63,6 +74,17 @@ export const TabTrigger = styled(Tabs.Trigger)`
     border-bottom: 1px solid ${({ theme }) => theme.COLORS.SECONDARY};
     color: ${({ theme }) => theme.COLORS.PURPLE_400};
   }
+`;
+
+export const TabContent = styled(Tabs.Content)`
+  width: 100%;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  gap: 1.6rem;
 `;
 
 export const HomeProducerHeader = styled.header`
