@@ -2,7 +2,7 @@ import { ReactNode, createContext, useState } from "react";
 import { ProducerType } from "../@types/producer";
 
 interface ProducerContextType {
-    producer: ProducerType | null | undefined,
+    producer: any
     saveCurrentProducerInContext: (producer: ProducerType) => void
 }
 

@@ -1,3 +1,6 @@
+import * as dayjs from "dayjs";
+import "dayjs/locale/pt-br";
+
 import {
   Container,
   EventDate,
@@ -7,26 +10,28 @@ import {
 import { ButtonHTMLAttributes } from "react";
 
 interface EventBannerProps extends ButtonHTMLAttributes<HTMLButtonElement> {
-  day: string;
-  hour: string;
-  title: string;
+  date: Date;
   img: string;
+  title:string
 }
 
 export function EventBanner({
-  day,
+  date,
   title,
-  hour,
   img,
   ...rest
 }: EventBannerProps) {
+  const dateFormatted = dayjs(date)
+    .locale("pt-br")
+    .format(`dddd, DD [de] MMMM - hh:mm`);
+
   return (
     <>
       <Container>
         <img src={img} alt="" />
         <EventSpecifications>
           <EventDate>
-            {day} - {hour}
+            {dateFormatted}
           </EventDate>
           <EventTittle {...rest}>{title}</EventTittle>
         </EventSpecifications>
