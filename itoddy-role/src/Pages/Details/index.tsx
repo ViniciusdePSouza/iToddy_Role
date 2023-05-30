@@ -92,7 +92,7 @@ export function Details() {
 
         <EventInfoWrapper>
           <EventDate>{dateFormatted}</EventDate>
-          <EventTittle>Arraial Quente Pelano</EventTittle>
+          <EventTittle>{data.title}</EventTittle>
         </EventInfoWrapper>
 
         <AddressDiv>
