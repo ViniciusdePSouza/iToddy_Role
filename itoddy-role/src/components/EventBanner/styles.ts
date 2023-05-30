@@ -9,6 +9,11 @@ export const Container = styled.div`
 
   border-radius: 8px;
   position: relative;
+
+  >img{
+    width: 100%;
+    border-radius: 8px;
+  }
 `;
 
 export const EventSpecifications = styled.div`
@@ -48,4 +53,10 @@ export const EventTittle = styled.button`
   line-height: 3.2rem;
 
   color: ${({ theme }) => theme.COLORS.WHITE};
+
+  cursor: pointer;
+
+  &:hover{
+    color: ${({ theme }) => theme.COLORS.PURPLE_100};
+  }
 `;
