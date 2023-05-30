@@ -57,8 +57,11 @@ export function Login() {
     const doesProducerExists = data;
 
     if (doesProducerExists.length > 0) {
-      saveCurrentProducerInContext(doesProducerExists[0]);
-      localStorage.setItem('@itoddy-role:producer', JSON.stringify(doesProducerExists[0]))
+      const producer = doesProducerExists[0]
+      await localStorage.setItem('@itoddy-role:producer', JSON.stringify(producer))
+
+      saveCurrentProducerInContext(producer);
+      
 
       navigate("/iToddy_Role/home-producer");
     } else {

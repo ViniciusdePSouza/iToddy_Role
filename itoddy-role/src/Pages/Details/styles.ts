@@ -2,6 +2,7 @@ import { styled } from "styled-components";
 
 export const Container = styled.div`
   width: 100%;
+  min-height: 100vh;
 
   display: flex;
   flex-direction: column;
@@ -10,10 +11,22 @@ export const Container = styled.div`
   position: relative;
 
   > img {
+    width: 100%;
     position: absolute;
     top: 0;
 
     z-index: -1;
+  }
+
+  @media (min-width: 768px) {
+    > img {
+      width: 100%;
+      height: 200px;
+      position: absolute;
+      top: 0;
+
+      z-index: -1;
+    }
   }
 `;
 
@@ -163,4 +176,6 @@ export const TicketDiv = styled.div`
   display: flex;
   align-items: center;
   justify-content: flex-end;
-`
+
+  margin-top: 60px;
+`;

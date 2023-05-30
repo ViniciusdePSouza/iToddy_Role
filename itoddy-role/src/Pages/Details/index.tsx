@@ -24,18 +24,46 @@ import pin from "../../assets/pin.png";
 import ticket from "../../assets/ticket.svg";
 
 import { Button } from "../../components/Button";
-import { useNavigate } from "react-router-dom";
+
+import { useNavigate, useParams } from "react-router-dom";
+
+import { useContext, useEffect, useState } from "react";
+
+import { api } from "../../services/api";
+
+import { EventProps } from "../../@types/event";
+
+import dayjs from "dayjs";
+import { ProducerContext } from "../../Context/ProducerContext";
 
 export function Details() {
   const navigate = useNavigate();
+  const [data, setData] = useState<EventProps>({} as EventProps)
+  const params = useParams()
+
+  const { producer } = useContext(ProducerContext)
 
   function handleGoBack() {
     navigate(-1);
   }
 
+  const dateFormatted = dayjs(data.date)
+  .locale("pt-br")
+  .format(`dddd, DD [de] MMMM - hh:mm`);
+
+  useEffect(() => {
+    async function fetchEventDetails() {
+        const response = await api.get(`/events?id=${params.id}`)
+        const eventDetails = response.data[0]
+        setData(eventDetails)
+    }
+
+    fetchEventDetails()
+  }, [])
+
   return (
     <Container>
-      <img src="https://picsum.photos/500/200" alt="" />
+      <img src={data.img} alt="" />
       <Content>
         <ButtonWrapper>
           <div>
@@ -52,16 +80,16 @@ export function Details() {
         </ButtonWrapper>
 
         <EventInfoWrapper>
-          <EventDate>Sexta-feira, 10 de junho - 20h00</EventDate>
+          <EventDate>{dateFormatted}</EventDate>
           <EventTittle>Arraial Quente Pelano</EventTittle>
         </EventInfoWrapper>
 
         <AddressDiv>
           <img src={pin} alt="pin" />
           <AddressInfo>
-            <Place>Aeroporto Carlos Prates</Place>
+            <Place>{data.place}</Place>
             <Address>
-              R. Ocidente, 100 - Padre Eustáquio, Belo Horizonte
+              {data.address}
             </Address>
           </AddressInfo>
         </AddressDiv>
@@ -69,22 +97,14 @@ export function Details() {
         <AboutSection>
           <TitleSection>Sobre</TitleSection>
           <AboutParagraph>
-            Para te aquecer nesse inverno, preparamos uma festa junina à lá
-            Quente Pelano, no Aeroporto Carlos Prates!
+           {data.about}
           </AboutParagraph>
-          <AboutParagraph>
-            É claro que uma festa junina da QP não seria uma festa junina
-            convencional, né? Para acompanhar os tradicionais costumes da festa
-            de São João, preparamos intervenções artísticas de tirar o fôlego,
-            cenografia inédita, flash tattoo, feirinha mix com marcas e artistas
-            locais além, é claro, de uma curadoria musical pensada para
-            esquentar o clima da noite!
-          </AboutParagraph>
+
         </AboutSection>
 
         <ProducerSection>
           <TitleSection>Produzido por</TitleSection>
-          <ProducerName>Quente Pelano</ProducerName>
+          <ProducerName>{producer.name}</ProducerName>
         </ProducerSection>
 
         <TicketDiv>

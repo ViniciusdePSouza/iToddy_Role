@@ -52,7 +52,6 @@ export function ProducerHome() {
     navigate(`/iToddy_Role/details/${id}`);
   }
 
-
   useEffect(() => {
     async function populateAllEvents() {
       const response = await fetchAllEvents();
