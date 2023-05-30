@@ -37,16 +37,17 @@ import { ProducerContext } from "../../Context/ProducerContext";
 import { EventProps } from "../../@types/event";
 
 export function ProducerHome() {
-  const [allEvents, setAllEvents] = useState<EventProps []>([]);
-  const [futureEvents, setFutureEvents] = useState<EventProps []>([]);
-  const [passedEvents, setPassedEvents] = useState<EventProps []>([]);
+  const [allEvents, setAllEvents] = useState<EventProps[]>([]);
+  const [futureEvents, setFutureEvents] = useState<EventProps[]>([]);
+  const [passedEvents, setPassedEvents] = useState<EventProps[]>([]);
 
   const { producer } = useContext(ProducerContext);
   const producerId = producer[0].id;
 
   const navigate = useNavigate();
 
-  const dateTest = new Date("30 January 2026");
+  const passedEvent = new Date("30 June 2020");
+  const futureEvent = new Date("05 August 2026");
 
   async function fetchAllEvents() {
     const response = await api.get(`events?producer_id=${producerId}`);
@@ -59,7 +60,6 @@ export function ProducerHome() {
   }
 
   function test() {
-    console.log(allEvents);
     console.log(futureEvents);
     console.log(passedEvents);
   }
@@ -68,28 +68,26 @@ export function ProducerHome() {
     async function populateAllEvents() {
       const response = await fetchAllEvents();
       setAllEvents(response.data);
+
+      const currentDate = dayjs(new Date());
+
+      const passedEventsArray = response.data.filter(
+        (event: {
+          date: string | number | Date | dayjs.Dayjs | null | undefined;
+        }) => currentDate.isAfter(event.date)
+      );
+      setPassedEvents(passedEventsArray);
+
+      const futureEventsArray = response.data.filter(
+        (event: {
+          date: string | number | Date | dayjs.Dayjs | null | undefined;
+        }) => currentDate.isBefore(event.date)
+      );
+      setFutureEvents(futureEventsArray);
     }
 
-    populateAllEvents()
+    populateAllEvents();
   }, []);
-
-  useEffect(() => {
-    function filterEvents() {
-      allEvents.map(event => {
-        if (dayjs(new Date()).isAfter(event.date)) {
-          setPassedEvents((prevState) => [...prevState, event]);
-        }
-      })
-      allEvents.map(event => {
-        if (dayjs(new Date()).isBefore(event.date)) {
-          setFutureEvents((prevState) => [...prevState, event]);
-        }
-      })
-      ;
-    }
-
-    filterEvents()
-  }, [])
 
   return (
     <>
@@ -113,27 +111,35 @@ export function ProducerHome() {
               <TabTrigger value="tab2">Eventos passados</TabTrigger>
             </TabTriggerWrapper>
             <TabContent value="tab1">
-              <EventBanner
-                date={dateTest}
-                img={event1}
-                title="Arraial Quente Pelano"
-                onClick={test}
-              />
+              {futureEvents && futureEvents.length > 0 ? (
+                futureEvents.map((event) => (
+                  <EventBanner
+                    key={event.id}
+                    date={event.date}
+                    img={event1}
+                    title={event.title}
+                    onClick={test}
+                  />
+                ))
+              ) : (
+                <h1>Não há eventos ainda</h1>
+              )}
             </TabContent>
 
             <TabContent value="tab2">
-              <EventBanner
-                date={dateTest}
-                img={event2}
-                title="QP no Catavento"
-                onClick={goToDetails}
-              />
-              <EventBanner
-                date={dateTest}
-                img={event3}
-                title="Quente Pelano Sunset"
-                onClick={goToDetails}
-              />
+              {passedEvents && passedEvents.length > 0 ? (
+                passedEvents.map((event) => (
+                  <EventBanner
+                    key={event.id}
+                    date={event.date}
+                    img={event2}
+                    title={event.title}
+                    onClick={test}
+                  />
+                ))
+              ) : (
+                <h1>Não há eventos ainda</h1>
+              )}
             </TabContent>
           </TabList>
         </TabRoot>
