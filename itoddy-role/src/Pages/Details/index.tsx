@@ -6,22 +6,28 @@ import {
   AddressDiv,
   AddressInfo,
   ButtonWrapper,
+  BuyTicketDiv,
+  CloseButton,
   Container,
   Content,
   EventDate,
   EventInfoWrapper,
   EventTittle,
+  Modal,
   Place,
   ProducerName,
   ProducerSection,
   TicketDiv,
+  TicketInfoDiv,
   TitleSection,
+  Warning,
 } from "./styles";
 
 import closeIcon from "../../assets/closeIcon.svg";
 import editIcon from "../../assets/edit.svg";
 import pin from "../../assets/pin.png";
 import ticket from "../../assets/ticket.svg";
+import evenTim from "../../assets/eventim.svg";
 
 import { Button } from "../../components/Button";
 
@@ -38,28 +44,33 @@ import { ProducerContext } from "../../Context/ProducerContext";
 
 export function Details() {
   const navigate = useNavigate();
-  const [data, setData] = useState<EventProps>({} as EventProps)
-  const params = useParams()
+  const [data, setData] = useState<EventProps>({} as EventProps);
+  const [showModal, setShowModal] = useState(false);
+  const params = useParams();
 
-  const { producer } = useContext(ProducerContext)
+  const { producer } = useContext(ProducerContext);
 
   function handleGoBack() {
     navigate(-1);
   }
 
+  function toggleModal() {
+    setShowModal(!showModal);
+  }
+
   const dateFormatted = dayjs(data.date)
-  .locale("pt-br")
-  .format(`dddd, DD [de] MMMM - hh:mm`);
+    .locale("pt-br")
+    .format(`dddd, DD [de] MMMM - hh:mm`);
 
   useEffect(() => {
     async function fetchEventDetails() {
-        const response = await api.get(`/events?id=${params.id}`)
-        const eventDetails = response.data[0]
-        setData(eventDetails)
+      const response = await api.get(`/events?id=${params.id}`);
+      const eventDetails = response.data[0];
+      setData(eventDetails);
     }
 
-    fetchEventDetails()
-  }, [])
+    fetchEventDetails();
+  }, []);
 
   return (
     <Container>
@@ -88,18 +99,13 @@ export function Details() {
           <img src={pin} alt="pin" />
           <AddressInfo>
             <Place>{data.place}</Place>
-            <Address>
-              {data.address}
-            </Address>
+            <Address>{data.address}</Address>
           </AddressInfo>
         </AddressDiv>
 
         <AboutSection>
           <TitleSection>Sobre</TitleSection>
-          <AboutParagraph>
-           {data.about}
-          </AboutParagraph>
-
+          <AboutParagraph>{data.about}</AboutParagraph>
         </AboutSection>
 
         <ProducerSection>
@@ -109,9 +115,30 @@ export function Details() {
 
         <TicketDiv>
           <div>
-            <Button title="Ingressos" picture={ticket} isLoading={false} />
+            <Button title="Ingressos" picture={ticket} isLoading={false} onClick={toggleModal}/>
           </div>
         </TicketDiv>
+
+        {showModal && (
+          <Modal>
+            <CloseButton onClick={toggleModal} />
+            <BuyTicketDiv>
+              <img src={evenTim} alt="Logo da empresa que vende o ingresso" />
+              <TicketInfoDiv>
+                <h2>Disponível em {data.availableOn}</h2>
+                <span>A partir de {data.price}</span>
+              </TicketInfoDiv>
+
+              <div>
+                <Button title={"Comprar"} isLoading={false} />
+              </div>
+            </BuyTicketDiv>
+
+            <Warning>
+              Ao clicar no botão você abrirá uma página externa a esse site.
+            </Warning>
+          </Modal>
+        )}
       </Content>
     </Container>
   );

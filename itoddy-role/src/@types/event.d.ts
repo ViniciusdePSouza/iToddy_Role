@@ -6,5 +6,7 @@ export interface EventProps {
     address: string;
     about: string;
     producer_id: number;
+    availableOn: string;
+    price: string;
     date: Date;
 }
