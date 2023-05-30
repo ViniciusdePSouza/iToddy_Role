@@ -24,15 +24,27 @@ import pin from "../../assets/pin.png";
 import ticket from "../../assets/ticket.svg";
 
 import { Button } from "../../components/Button";
+import { useNavigate } from "react-router-dom";
 
 export function Details() {
+  const navigate = useNavigate();
+
+  function handleGoBack() {
+    navigate(-1);
+  }
+
   return (
     <Container>
       <img src="https://picsum.photos/500/200" alt="" />
       <Content>
         <ButtonWrapper>
           <div>
-            <SvgButton svg={closeIcon} variant="PRIMARY" isRounded="Rounded" />
+            <SvgButton
+              svg={closeIcon}
+              variant="PRIMARY"
+              isRounded="Rounded"
+              onClick={handleGoBack}
+            />
           </div>
           <div>
             <SvgButton svg={editIcon} variant="SECONDARY" isRounded="Rounded" />

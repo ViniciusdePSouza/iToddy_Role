@@ -38,7 +38,7 @@ export function ProducerHome() {
   const [passedEvents, setPassedEvents] = useState<EventProps[]>([]);
 
   const { producer } = useContext(ProducerContext);
-  const producerId = producer[0].id;
+  const producerId = producer.id;
 
   const navigate = useNavigate();
 
@@ -51,6 +51,7 @@ export function ProducerHome() {
   function goToDetails(id: number) {
     navigate(`/iToddy_Role/details/${id}`);
   }
+
 
   useEffect(() => {
     async function populateAllEvents() {

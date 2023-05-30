@@ -41,35 +41,42 @@ export function Login() {
     resolver: zodResolver(loginFormSchema),
   });
 
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
-  const { saveCurrentProducerInContext } = useContext(ProducerContext)
+  const { saveCurrentProducerInContext } = useContext(ProducerContext);
 
   function handleGoBack() {
-    navigate(-1)
+    navigate(-1);
   }
 
   async function handleLogin({ email, password }: LoginFormData) {
-    
-    const { data } = await api.get(`/users?email=${email}&password=${password}`);
+    const { data } = await api.get(
+      `/users?email=${email}&password=${password}`
+    );
 
-    const doesProducerExists = data
+    const doesProducerExists = data;
 
-    if (doesProducerExists.length > 0){ 
-        saveCurrentProducerInContext(doesProducerExists)
+    if (doesProducerExists.length > 0) {
+      saveCurrentProducerInContext(doesProducerExists[0]);
+      localStorage.setItem('@itoddy-role:producer', JSON.stringify(doesProducerExists[0]))
 
-       await navigate('/iToddy_Role/home-producer')
-    }else {
-       alert('Senha ou usuário incorreto, tente novamente')
+      navigate("/iToddy_Role/home-producer");
+    } else {
+      alert("Senha ou usuário incorreto, tente novamente");
     }
-      
-    return
+
+    return;
   }
 
   return (
     <Container>
       <SvgWrapper>
-        <SvgButton svg={closeSVG} variant="SECONDARY" isRounded="Rounded" onClick={handleGoBack}/>
+        <SvgButton
+          svg={closeSVG}
+          variant="SECONDARY"
+          isRounded="Rounded"
+          onClick={handleGoBack}
+        />
       </SvgWrapper>
 
       <Logo src={logo} alt="Logo Role" />
