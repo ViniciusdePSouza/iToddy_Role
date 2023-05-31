@@ -20,10 +20,6 @@ import { SvgButton } from "../../components/SvgButton";
 import Input from "../../components/Input";
 import { EventBanner } from "../../components/EventBanner";
 
-import event1 from "../../assets/Events/Evento1.png";
-import event2 from "../../assets/Events/Evento2.png";
-import event3 from "../../assets/Events/Evento3.png";
-
 import * as dayjs from "dayjs";
 import "dayjs/locale/pt-br";
 
@@ -41,13 +37,10 @@ export function ProducerHome() {
   const [futureEvents, setFutureEvents] = useState<EventProps[]>([]);
   const [passedEvents, setPassedEvents] = useState<EventProps[]>([]);
 
-  const { producer } = useContext(ProducerContext);
-  const producerId = producer[0].id;
+  const producer = JSON.parse(localStorage.getItem('@itoddy-role:producer') || '')
+  const producerId = producer.id;
 
   const navigate = useNavigate();
-
-  const passedEvent = new Date("30 June 2020");
-  const futureEvent = new Date("05 August 2026");
 
   async function fetchAllEvents() {
     const response = await api.get(`events?producer_id=${producerId}`);
@@ -55,13 +48,8 @@ export function ProducerHome() {
     return response;
   }
 
-  function goToDetails() {
-    console.log("goToDetails");
-  }
-
-  function test() {
-    console.log(futureEvents);
-    console.log(passedEvents);
+  function goToDetails(id: number) {
+    navigate(`/iToddy_Role/details/${id}`);
   }
 
   useEffect(() => {
@@ -116,9 +104,9 @@ export function ProducerHome() {
                   <EventBanner
                     key={event.id}
                     date={event.date}
-                    img={event1}
+                    img={event.img}
                     title={event.title}
-                    onClick={test}
+                    onClick={() => goToDetails(event.id)}
                   />
                 ))
               ) : (
@@ -132,9 +120,9 @@ export function ProducerHome() {
                   <EventBanner
                     key={event.id}
                     date={event.date}
-                    img={event2}
+                    img={event.img}
                     title={event.title}
-                    onClick={test}
+                    onClick={() => goToDetails(event.id)}
                   />
                 ))
               ) : (

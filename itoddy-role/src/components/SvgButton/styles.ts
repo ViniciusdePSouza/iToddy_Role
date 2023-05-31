@@ -38,4 +38,5 @@ export const Container = styled.button<SvgButtonContainerProps>`
   ${(props) => `border: ${svgButtonVariantBorder[props.variant]}`};
   ${(props) => `border-radius: ${buttonRadius[props.rounded]}`};
 
+  cursor: pointer;
 `;

@@ -27,6 +27,8 @@ export const Container = styled.button<ButtonContainerProps>`
   align-items: center;
   justify-content: center;
 
+  gap: 0.8rem;
+
   padding: 1.2rem 6rem;
   margin-top: .8rem;
 
