@@ -45,12 +45,13 @@ export function Details() {
   const navigate = useNavigate();
   const [data, setData] = useState<EventProps>({} as EventProps);
   const [showModal, setShowModal] = useState(false);
+
   const params = useParams();
 
   const producer = JSON.parse(localStorage.getItem('@itoddy-role:producer') || '')
 
   function handleGoBack() {
-    navigate(-1);
+    navigate('/iToddy_Role/home-producer');
   }
 
   function handleGoToEditEvent(id: number){
