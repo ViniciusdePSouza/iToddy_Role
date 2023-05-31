@@ -43,7 +43,7 @@ export function Login() {
 
   const navigate = useNavigate();
 
-  const { producer, saveCurrentProducerInContext } = useContext(ProducerContext);
+  const { saveCurrentProducerInContext } = useContext(ProducerContext);
 
   function handleGoBack() {
     navigate(-1);

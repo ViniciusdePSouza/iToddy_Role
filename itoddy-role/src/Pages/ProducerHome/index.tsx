@@ -37,7 +37,7 @@ export function ProducerHome() {
   const [futureEvents, setFutureEvents] = useState<EventProps[]>([]);
   const [passedEvents, setPassedEvents] = useState<EventProps[]>([]);
 
-  const producer = JSON.parse(localStorage.getItem('@itoddy-role:producer'));
+  const producer = JSON.parse(localStorage.getItem('@itoddy-role:producer') || '')
   const producerId = producer.id;
 
   const navigate = useNavigate();

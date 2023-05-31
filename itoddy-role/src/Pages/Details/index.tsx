@@ -47,7 +47,7 @@ export function Details() {
   const [showModal, setShowModal] = useState(false);
   const params = useParams();
 
-  const producer = JSON.parse(localStorage.getItem('@itoddy-role:producer'))
+  const producer = JSON.parse(localStorage.getItem('@itoddy-role:producer') || '')
 
   function handleGoBack() {
     navigate(-1);
