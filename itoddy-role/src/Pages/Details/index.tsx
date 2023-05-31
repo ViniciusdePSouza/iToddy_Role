@@ -33,14 +33,13 @@ import { Button } from "../../components/Button";
 
 import { useNavigate, useParams } from "react-router-dom";
 
-import { useContext, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 
 import { api } from "../../services/api";
 
 import { EventProps } from "../../@types/event";
 
 import dayjs from "dayjs";
-import { ProducerContext } from "../../Context/ProducerContext";
 
 export function Details() {
   const navigate = useNavigate();
@@ -48,7 +47,7 @@ export function Details() {
   const [showModal, setShowModal] = useState(false);
   const params = useParams();
 
-  const { producer } = useContext(ProducerContext);
+  const producer = JSON.parse(localStorage.getItem('@itoddy-role:producer'))
 
   function handleGoBack() {
     navigate(-1);

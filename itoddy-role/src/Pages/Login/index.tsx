@@ -43,7 +43,7 @@ export function Login() {
 
   const navigate = useNavigate();
 
-  const { saveCurrentProducerInContext } = useContext(ProducerContext);
+  const { producer, saveCurrentProducerInContext } = useContext(ProducerContext);
 
   function handleGoBack() {
     navigate(-1);
@@ -58,10 +58,9 @@ export function Login() {
 
     if (doesProducerExists.length > 0) {
       const producer = doesProducerExists[0]
-      await localStorage.setItem('@itoddy-role:producer', JSON.stringify(producer))
+      localStorage.setItem('@itoddy-role:producer', JSON.stringify(producer))
 
       saveCurrentProducerInContext(producer);
-      
 
       navigate("/iToddy_Role/home-producer");
     } else {
