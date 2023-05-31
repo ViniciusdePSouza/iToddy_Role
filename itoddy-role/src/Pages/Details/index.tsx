@@ -53,6 +53,10 @@ export function Details() {
     navigate(-1);
   }
 
+  function handleGoToEditEvent(id: number){
+    navigate(`/iToddy_Role/details/edit/${id}`)
+  }
+
   function toggleModal() {
     setShowModal(!showModal);
   }
@@ -85,7 +89,7 @@ export function Details() {
             />
           </div>
           <div>
-            <SvgButton svg={editIcon} variant="SECONDARY" isRounded="Rounded" />
+            <SvgButton svg={editIcon} variant="SECONDARY" isRounded="Rounded" onClick={() => handleGoToEditEvent(data.id)}/>
           </div>
         </ButtonWrapper>
 
