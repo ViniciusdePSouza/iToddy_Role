@@ -2,10 +2,10 @@ import { SvgButton } from "../../components/SvgButton";
 import {
   Container,
   DateDiv,
-  DivDiv,
   Form,
   FormValidatorAdvisor,
   Header,
+  InputHourDimensions,
   Title,
 } from "./styles";
 
@@ -29,6 +29,7 @@ import { useEffect, useState } from "react";
 import { EventProps } from "../../@types/event";
 
 import { api } from "../../services/api";
+import { FormTagContainer } from "../../components/FormTagContainer";
 
 const editEventSchema = z.object({
   title: z.string().nonempty("O nome do evento é obrigatório"),
@@ -50,10 +51,12 @@ const editEventSchema = z.object({
 type EditEventFormData = z.infer<typeof editEventSchema>;
 
 export function EditEvent() {
+  
   const navigate = useNavigate();
   const params = useParams();
-
+  
   const [data, setData] = useState<EventProps>({} as EventProps);
+  const [tag, setTag] = useState('')
 
   const {
     register,
@@ -98,6 +101,7 @@ export function EditEvent() {
       place,
       price,
       title,
+      tag, 
       img: "https://picsum.photos/350/180",
     };
 
@@ -129,8 +133,9 @@ export function EditEvent() {
       setValue("price", data.price);
       setValue("title", data.title);
       setValue("address", data.address);
+      setTag(data.tag)
     }
-  }, [data, setValue]);
+  }, [data, setValue, tag]);
 
   return (
     <Container>
@@ -164,7 +169,7 @@ export function EditEvent() {
             {errors.date ? errors.date?.message : ""}
           </FormValidatorAdvisor>
 
-          <DivDiv>
+          <InputHourDimensions>
             <Input
               placeholder="Horário 20:00"
               type="time"
@@ -173,13 +178,15 @@ export function EditEvent() {
             <FormValidatorAdvisor>
               {errors.time ? errors.time?.message : ""}
             </FormValidatorAdvisor>
-          </DivDiv>
+          </InputHourDimensions>
         </DateDiv>
 
         <Input placeholder="R$ 50,00" {...register("price")} />
         <FormValidatorAdvisor>
           {errors.price ? errors.price?.message : ""}
         </FormValidatorAdvisor>
+
+        <FormTagContainer tagTitle={tag}/>
 
         <TextArea placeholder="Fale sobre o evento" {...register("about")} />
         <FormValidatorAdvisor>

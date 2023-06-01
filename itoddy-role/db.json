@@ -30,6 +30,7 @@
       "place": "Aeroporto Carlos Prates",
       "price": "R$ 50,00",
       "title": "QP no Catavento",
+      "tag": "esportes",
       "img": "https://picsum.photos/350/180"
     },
     {
@@ -41,6 +42,7 @@
       "producer_id": 2,
       "availableOn": "eventim",
       "price": "R$ 22,90",
+      "tag": "exposição",
       "about": "Para te aquecer nesse inverno, preparamos uma festa junina à lá Quente Pelano, no Aeroporto Carlos Prates!É claro que uma festa junina da QP não seria uma festa junina      convencional, né? Para acompanhar os tradicionais costumes da festa      de São João, preparamos intervenções artísticas de tirar o fôlego,      cenografia inédita, flash tattoo, feirinha mix com marcas e artistas locais além, é claro, de uma curadoria musical pensada para esquentar o clima da noite!",
       "date": "Sat Jul 18 2020 00:00:00 GMT-0300 (GMT-03:00)"
     },
@@ -49,11 +51,12 @@
       "producer_id": 2,
       "availableOn": "eventim",
       "about": "Para te aquecer nesse inverno, preparamos uma festa junina à lá Quente Pelano, no Aeroporto Carlos Prates!É claro que uma festa junina da QP não seria uma festa junina      convencional, né? Para acompanhar os tradicionais costumes da festa      de São João, preparamos intervenções artísticas de tirar o fôlego,      cenografia inédita, flash tattoo, feirinha mix com marcas e artistas locais além, é claro, de uma curadoria musical pensada para esquentar o clima da noite!",
-      "date": "2023-06-14T17:31:00.000Z",
+      "date": "2023-06-01T20:48:00.000Z",
       "address": "R. Ocidente, 100 - Padre Eustáquio, Belo Horizonte",
       "place": "Jardin Canadá",
       "price": "R$ 150,00",
       "title": "Arraial Quente Pelano",
+      "tag": "shows",
       "img": "https://picsum.photos/350/180"
     }
   ],
@@ -62,6 +65,7 @@
     "Exposição",
     "Festa",
     "Esportes",
-    "Culinária"
+    "Culinária",
+    "Cultura"
   ]
 }

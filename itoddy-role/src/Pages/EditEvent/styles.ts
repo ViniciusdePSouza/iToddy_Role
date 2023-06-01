@@ -10,8 +10,6 @@ export const Container = styled.div`
 
   padding: 2rem;
 
-  margin-top: 8rem;
-
   gap: 3rem;
 `;
 
@@ -58,7 +56,7 @@ export const DateDiv = styled.div`
 
   gap: 1.6rem;
 `;
-export const DivDiv = styled.div`
+export const InputHourDimensions = styled.div`
   width: 40%;
 
   display: flex;
