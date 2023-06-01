@@ -6,21 +6,8 @@ import {
   Form,
   FormValidatorAdvisor,
   Header,
-  SelectContent,
-  SelectGroup,
-  SelectIcon,
-  SelectPortal,
-  SelectRoot,
-  SelectScrollUpButton,
-  SelectTrigger,
-  SelectValue,
-  SelectViewport,
   Title,
 } from "./styles";
-
-import { CaretDown, CaretUp } from "phosphor-react";
-
-import { defaultTheme } from "../../styles/theme/default";
 
 import dayjs from "dayjs";
 
@@ -29,7 +16,7 @@ import closeIcon from "../../assets/closeIcon.svg";
 import { useNavigate, useParams } from "react-router-dom";
 
 import Input from "../../components/Input";
-import { TextArea } from "../../components/TextArea";
+import TextArea from "../../components/TextArea";
 import { Button } from "../../components/Button";
 
 import { z } from "zod";
@@ -42,7 +29,6 @@ import { useEffect, useState } from "react";
 import { EventProps } from "../../@types/event";
 
 import { api } from "../../services/api";
-import { SelectItem } from "../../components/SelectItem";
 
 const editEventSchema = z.object({
   title: z.string().nonempty("O nome do evento é obrigatório"),
@@ -194,29 +180,6 @@ export function EditEvent() {
         <FormValidatorAdvisor>
           {errors.price ? errors.price?.message : ""}
         </FormValidatorAdvisor>
-
-        <SelectRoot>
-          <SelectTrigger aria-label="tags">
-            <SelectValue placeholder="Selecione uma tag para o evento" />
-            <SelectIcon>
-              <CaretDown size={32} color={defaultTheme.COLORS.PRIMARY} />
-            </SelectIcon>
-          </SelectTrigger>
-
-            <SelectContent>
-              <SelectScrollUpButton>
-                <CaretUp size={32} color={defaultTheme.COLORS.PRIMARY} />
-              </SelectScrollUpButton>
-              <SelectViewport>
-                <SelectGroup>
-                  <SelectItem value="Shows">Shows</SelectItem>
-                  <SelectItem value="Festa">Festa</SelectItem>
-                  <SelectItem value="Esportes">Esportes</SelectItem>
-                </SelectGroup>
-              </SelectViewport>
-            </SelectContent>
-
-        </SelectRoot>
 
         <TextArea placeholder="Fale sobre o evento" {...register("about")} />
         <FormValidatorAdvisor>
