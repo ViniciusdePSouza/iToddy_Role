@@ -45,12 +45,17 @@ export function Details() {
   const navigate = useNavigate();
   const [data, setData] = useState<EventProps>({} as EventProps);
   const [showModal, setShowModal] = useState(false);
+
   const params = useParams();
 
   const producer = JSON.parse(localStorage.getItem('@itoddy-role:producer') || '')
 
   function handleGoBack() {
-    navigate(-1);
+    navigate('/iToddy_Role/home-producer');
+  }
+
+  function handleGoToEditEvent(id: number){
+    navigate(`/iToddy_Role/details/edit/${id}`)
   }
 
   function toggleModal() {
@@ -85,7 +90,7 @@ export function Details() {
             />
           </div>
           <div>
-            <SvgButton svg={editIcon} variant="SECONDARY" isRounded="Rounded" />
+            <SvgButton svg={editIcon} variant="SECONDARY" isRounded="Rounded" onClick={() => handleGoToEditEvent(data.id)}/>
           </div>
         </ButtonWrapper>
 

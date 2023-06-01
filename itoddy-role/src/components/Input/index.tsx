@@ -13,8 +13,8 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
   ) => {
     return (
       <Container variant={variant}>
-        {icon && <img src={icon} />}
         <input ref={ref} placeholder={placeholder} type={type} {...rest} />
+        {icon && <img src={icon} />}
       </Container>
     );
   }

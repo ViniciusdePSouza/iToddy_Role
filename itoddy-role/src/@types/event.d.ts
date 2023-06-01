@@ -8,5 +8,6 @@ export interface EventProps {
     producer_id: number;
     availableOn: string;
     price: string;
+    tag: string
     date: Date;
 }
