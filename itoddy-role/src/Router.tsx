@@ -5,6 +5,7 @@ import { Login } from './Pages/Login'
 import { ProducerHome } from './Pages/ProducerHome'
 import { Details } from './Pages/Details'
 import { EditEvent } from './Pages/EditEvent'
+import { NewEvent } from './Pages/NewEvent'
 
 export function Router() {
     return(
@@ -15,6 +16,7 @@ export function Router() {
             <Route path='/iToddy_Role/home-producer' element={<ProducerHome/>}/>
             <Route path='/iToddy_Role/details/:id' element={<Details/>}/>
             <Route path='/iToddy_Role/details/edit/:id' element={<EditEvent/>}/>
+            <Route path='/iToddy_Role/newevent' element={<NewEvent/>}/>
         </Routes>
     )
 }

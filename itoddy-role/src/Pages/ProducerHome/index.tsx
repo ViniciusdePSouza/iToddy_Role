@@ -1,4 +1,5 @@
 import {
+  AddButton,
   Container,
   HomeProducerHeader,
   Logo,
@@ -15,6 +16,7 @@ import logo from "../../assets/purpleLogo.svg";
 import profileIcon from "../../assets/profile.svg";
 import exitIcon from "../../assets/exit.svg";
 import searchIcon from "../../assets/search.svg";
+import addIcon from "../../assets/add.svg";
 
 import { SvgButton } from "../../components/SvgButton";
 import Input from "../../components/Input";
@@ -23,21 +25,24 @@ import { EventBanner } from "../../components/EventBanner";
 import * as dayjs from "dayjs";
 import "dayjs/locale/pt-br";
 
-import { useContext, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 
 import { api } from "../../services/api";
 import { useNavigate } from "react-router-dom";
 
-import { ProducerContext } from "../../Context/ProducerContext";
-
 import { EventProps } from "../../@types/event";
+import { Button } from "../../components/Button";
+import { defaultTheme } from "../../styles/theme/default";
+import { Plus } from "phosphor-react";
 
 export function ProducerHome() {
   const [allEvents, setAllEvents] = useState<EventProps[]>([]);
   const [futureEvents, setFutureEvents] = useState<EventProps[]>([]);
   const [passedEvents, setPassedEvents] = useState<EventProps[]>([]);
 
-  const producer = JSON.parse(localStorage.getItem('@itoddy-role:producer') || '')
+  const producer = JSON.parse(
+    localStorage.getItem("@itoddy-role:producer") || ""
+  );
   const producerId = producer.id;
 
   const navigate = useNavigate();
@@ -50,6 +55,10 @@ export function ProducerHome() {
 
   function goToDetails(id: number) {
     navigate(`/iToddy_Role/details/${id}`);
+  }
+
+  function handleNewEvent() {
+    navigate("/iToddy_Role/newevent")
   }
 
   useEffect(() => {
@@ -131,6 +140,11 @@ export function ProducerHome() {
             </TabContent>
           </TabList>
         </TabRoot>
+        
+        <AddButton>
+          <Plus size={32} color={defaultTheme.COLORS.WHITE_100} onClick={handleNewEvent}/>
+        </AddButton>
+
       </Container>
     </>
   );
