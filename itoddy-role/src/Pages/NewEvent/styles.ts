@@ -103,7 +103,7 @@ export const InputTicketPrice = styled.div`
 `;
 
 export const SwitchRoot = styled(Switch.Root)`
-  width: 42px;
+  width: 60px;
   height: 25px;
   background-color: ${({ theme }) => theme.COLORS.SECONDARY};
   border-radius: 9999px;
@@ -131,6 +131,6 @@ export const SwitchThumb = styled(Switch.Thumb)`
   will-change: transform;
 
   &[data-state="checked"] {
-    transform: translateX(19px);
+    transform: translateX(36px);
   }
 `;
