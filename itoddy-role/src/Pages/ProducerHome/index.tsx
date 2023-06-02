@@ -16,7 +16,6 @@ import logo from "../../assets/purpleLogo.svg";
 import profileIcon from "../../assets/profile.svg";
 import exitIcon from "../../assets/exit.svg";
 import searchIcon from "../../assets/search.svg";
-import addIcon from "../../assets/add.svg";
 
 import { SvgButton } from "../../components/SvgButton";
 import Input from "../../components/Input";
@@ -31,7 +30,6 @@ import { api } from "../../services/api";
 import { useNavigate } from "react-router-dom";
 
 import { EventProps } from "../../@types/event";
-import { Button } from "../../components/Button";
 import { defaultTheme } from "../../styles/theme/default";
 import { Plus } from "phosphor-react";
 
