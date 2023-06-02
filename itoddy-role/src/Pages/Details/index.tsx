@@ -62,6 +62,10 @@ export function Details() {
     setShowModal(!showModal);
   }
 
+  function showLink() {
+    console.log(data.link);
+  }
+
   const dateFormatted = dayjs(data.date)
     .locale("pt-br")
     .format(`dddd, DD [de] MMMM - hh:mm`);
@@ -134,7 +138,7 @@ export function Details() {
               </TicketInfoDiv>
 
               <div>
-                <Button title={"Comprar"} isLoading={false} />
+                <Button title={"Comprar"} isLoading={false} onClick={showLink}/>
               </div>
             </BuyTicketDiv>
 

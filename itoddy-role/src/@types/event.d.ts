@@ -10,4 +10,5 @@ export interface EventProps {
     price: string;
     tag: string
     date: Date;
+    link: string;
 }
