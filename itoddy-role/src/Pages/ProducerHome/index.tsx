@@ -42,6 +42,9 @@ export function ProducerHome() {
   const [futureEvents, setFutureEvents] = useState<EventProps[]>([]);
   const [passedEvents, setPassedEvents] = useState<EventProps[]>([]);
 
+  const [search, setSearch] = useState("");
+  const [searchResults, setSearchResults] = useState<EventProps[]>([]);
+
   const producer = JSON.parse(
     localStorage.getItem("@itoddy-role:producer") || ""
   );
@@ -96,6 +99,14 @@ export function ProducerHome() {
     populateAllEvents();
   }, []);
 
+  useEffect(() => {
+    const filteredEventsByName = allEvents.filter((event) =>
+      event.title.toLowerCase().includes(search.toLowerCase())
+    );
+
+    setSearchResults(filteredEventsByName);
+  }, [search]);
+
   return (
     <>
       <HomeProducerHeader>
@@ -113,8 +124,22 @@ export function ProducerHome() {
             />
           </NavButtonWrapper>
         </ProducerNav>
-        <Input icon={searchIcon} placeholder="pesquisar meus eventos" />
+        <Input
+          icon={searchIcon}
+          placeholder="pesquisar meus eventos"
+          onChange={(e) => setSearch(e.target.value)}
+        />
 
+        {searchResults.length > 0 &&
+          searchResults.map((event) => (
+            <EventBanner
+              key={event.id}
+              date={event.date}
+              img={event.img}
+              title={event.title}
+              onClick={() => goToDetails(Number(event.id))}
+            />
+          ))}
         {allEvents && allEvents.length > 0 ? (
           <TabRoot defaultValue="tab1">
             <TabList aria-label="Gerencie seus eventos">
@@ -123,7 +148,7 @@ export function ProducerHome() {
                 <TabTrigger value="tab2">Eventos passados</TabTrigger>
               </TabTriggerWrapper>
               <TabContent value="tab1">
-                {futureEvents && futureEvents.length > 0 ? (
+                {futureEvents.length > 0 &&
                   futureEvents.map((event) => (
                     <EventBanner
                       key={event.id}
@@ -132,14 +157,11 @@ export function ProducerHome() {
                       title={event.title}
                       onClick={() => goToDetails(Number(event.id))}
                     />
-                  ))
-                ) : (
-                  <h1>Não há eventos ainda</h1>
-                )}
+                  ))}
               </TabContent>
 
               <TabContent value="tab2">
-                {passedEvents && passedEvents.length > 0 ? (
+                {passedEvents.length > 0 &&
                   passedEvents.map((event) => (
                     <EventBanner
                       key={event.id}
@@ -148,10 +170,7 @@ export function ProducerHome() {
                       title={event.title}
                       onClick={() => goToDetails(Number(event.id))}
                     />
-                  ))
-                ) : (
-                  <h1>Não há eventos ainda</h1>
-                )}
+                  ))}
               </TabContent>
             </TabList>
           </TabRoot>
