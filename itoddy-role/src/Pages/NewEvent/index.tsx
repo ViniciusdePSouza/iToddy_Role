@@ -2,7 +2,7 @@ import { SvgButton } from "../../components/SvgButton";
 
 import closeIcon from "../../assets/closeIcon.svg";
 
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 import { useForm } from "react-hook-form";
 
@@ -14,7 +14,7 @@ import { FormTagContainer } from "../../components/FormTagContainer";
 import { Button } from "../../components/Button";
 import TextArea from "../../components/TextArea";
 
-import { useState } from "react";
+import { useContext, useState } from "react";
 
 import { api } from "../../services/api";
 
@@ -31,6 +31,10 @@ import {
   SwitchRoot,
   InputTicketPrice,
 } from "./styles";
+
+import dayjs from "dayjs";
+import { EventProps } from "../../@types/event";
+import { TagContext } from "../../Context/TagContext";
 
 const newEventSchema = z.object({
   title: z.string().nonempty("O nome do evento é obrigatório"),
@@ -63,16 +67,48 @@ export function NewEvent() {
 
   const [isFreeEvent, setIsFreeEvent] = useState(false);
 
-  const [tag, setTag] = useState("");
+  const { tag } = useContext(TagContext)
 
   const navigate = useNavigate();
+
+  const producer = JSON.parse(localStorage.getItem('@itoddy-role:producer') || '')
 
   function handleGoBack() {
     navigate(-1);
   }
 
-  function handleNewEvent(data: any) {
-    console.log(data);
+  async function handleNewEvent({about, address, date, link, place, price, time, title}: NewEventFormData) {
+    const dateString = dayjs(date).format("ddd MMM DD YYYY");
+
+    const dateDB = new Date(`${dateString} ${time}`);
+
+    let priceDB = price
+
+    if(priceDB === '') {
+      priceDB = '00,00'
+    }
+
+    const newEvent: EventProps = {
+      producer_id: producer.id,
+      availableOn: 'eventim',
+      about,
+      date: dateDB,
+      address,
+      place,
+      price: priceDB,
+      title,
+      tag: String(tag), 
+      img: "https://picsum.photos/350/180",
+      link
+    }
+
+    try {
+      await api.post('/events', newEvent)
+
+      alert("Parabéns! Seu evento foi criado com sucesso");
+    } catch (err) {
+      console.log(err)
+    }
   }
 
   const handleSwitchChange = () => {
@@ -123,7 +159,7 @@ export function NewEvent() {
           </InputHourDimensions>
         </DateDiv>
 
-        <FormTagContainer tagTitle={tag} />
+        <FormTagContainer tagTitle={String(tag)} />
 
         <TextArea placeholder="Fale sobre o evento" {...register("about")} />
         <FormValidatorAdvisor>
