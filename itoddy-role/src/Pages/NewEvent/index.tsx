@@ -32,13 +32,34 @@ import {
   InputTicketPrice,
 } from "./styles";
 
+const newEventSchema = z.object({
+  title: z.string().nonempty("O nome do evento é obrigatório"),
+  address: z.string().nonempty("O endereço do evento é obrigatório"),
+  place: z.string().nonempty("O local do evento é obrigatório"),
+  time: z.string().nonempty("O horário do evento é obrigatório"),
+  price: z.string(),
+  about: z.string().nonempty("A descrição do evento é obrigatória"),
+  date: z
+    .string()
+    .nonempty("A data do evento é obrigatória")
+    .refine((value) => {
+      const date = new Date(value);
+      return !isNaN(date.getTime());
+    }, "A data do evento é inválida")
+    .transform((value) => new Date(value)),
+  link: z.string().nonempty("O link do evento é obrigatório").url('Link inválido'),
+})
+
+type NewEventFormData = z.infer<typeof newEventSchema>
+
 export function NewEvent() {
   const {
     register,
     handleSubmit,
     formState: { errors, isSubmitting },
-    setValue,
-  } = useForm({});
+  } = useForm<NewEventFormData>({
+    resolver: zodResolver(newEventSchema)
+  });
 
   const [isFreeEvent, setIsFreeEvent] = useState(false);
 
@@ -71,23 +92,23 @@ export function NewEvent() {
       <Form onSubmit={handleSubmit(handleNewEvent)}>
         <Input placeholder="Nome do Evento" {...register("title")} />
         <FormValidatorAdvisor>
-          {/* {errors.title ? errors.title?.message : ""} */}
+          {errors.title ? errors.title?.message : ""}
         </FormValidatorAdvisor>
 
         <Input placeholder="Endereço do Evento" {...register("address")} />
         <FormValidatorAdvisor>
-          {/* {errors.address ? errors.address?.message : ""} */}
+          {errors.address ? errors.address?.message : ""}
         </FormValidatorAdvisor>
 
         <Input placeholder="Local do Evento" {...register("place")} />
         <FormValidatorAdvisor>
-          {/* {errors.place ? errors.place?.message : ""} */}
+          {errors.place ? errors.place?.message : ""}
         </FormValidatorAdvisor>
 
         <DateDiv>
           <Input placeholder="10/06/2023" type="date" {...register("date")} />
           <FormValidatorAdvisor>
-            {/* {errors.date ? errors.date?.message : ""} */}
+            {errors.date ? errors.date?.message : ""}
           </FormValidatorAdvisor>
 
           <InputHourDimensions>
@@ -97,7 +118,7 @@ export function NewEvent() {
               {...register("time")}
             />
             <FormValidatorAdvisor>
-              {/* {errors.time ? errors.time?.message : ""} */}
+              {errors.time ? errors.time?.message : ""}
             </FormValidatorAdvisor>
           </InputHourDimensions>
         </DateDiv>
@@ -106,7 +127,7 @@ export function NewEvent() {
 
         <TextArea placeholder="Fale sobre o evento" {...register("about")} />
         <FormValidatorAdvisor>
-          {/* {errors.about ? errors.about?.message : ""} */}
+          {errors.about ? errors.about?.message : ""}
         </FormValidatorAdvisor>
 
         <TicketPriceDiv>
@@ -127,12 +148,16 @@ export function NewEvent() {
             placeholder={isFreeEvent ? "Evento Gratuito!! " : "R$ 50,00"}
             {...register("price")}
             disabled={isFreeEvent}
+            type="number"
           />
         </InputTicketPrice>
 
-        <Input placeholder="Insira o link para a compra" {...register("link")}/>
+        <Input
+          placeholder="Insira o link para a compra"
+          {...register("link")}
+        />
         <FormValidatorAdvisor>
-          {/* {errors.price ? errors.price?.message : ""} */}
+          {errors.link ? errors.link?.message : ""}
         </FormValidatorAdvisor>
         <Button title="Criar Evento" isLoading={isSubmitting} type="submit" />
       </Form>

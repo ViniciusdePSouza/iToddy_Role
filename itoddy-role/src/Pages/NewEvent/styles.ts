@@ -1,5 +1,6 @@
 import { styled } from "styled-components";
 import * as Switch from "@radix-ui/react-switch";
+import * as Select from "@radix-ui/react-select";
 
 export const Container = styled.div`
   height: 100vh;
@@ -21,8 +22,6 @@ export const Header = styled.header`
   display: flex;
   justify-content: space-between;
   align-items: center;
-
-  margin-bottom: 2rem;
 
   > div {
     width: 20%;

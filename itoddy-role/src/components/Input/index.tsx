@@ -1,5 +1,5 @@
 import { Container, InputVariantColor } from "./styles";
-import { forwardRef, InputHTMLAttributes } from "react";
+import { forwardRef, InputHTMLAttributes, useEffect, useState } from "react";
 
 interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
   icon?: string;
@@ -19,5 +19,6 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
     );
   }
 );
+
 
 export default Input;
