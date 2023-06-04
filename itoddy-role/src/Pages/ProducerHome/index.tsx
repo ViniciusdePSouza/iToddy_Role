@@ -24,7 +24,7 @@ import { EventBanner } from "../../components/EventBanner";
 import * as dayjs from "dayjs";
 import "dayjs/locale/pt-br";
 
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 
 import { api } from "../../services/api";
 import { useNavigate } from "react-router-dom";
@@ -32,6 +32,8 @@ import { useNavigate } from "react-router-dom";
 import { EventProps } from "../../@types/event";
 import { defaultTheme } from "../../styles/theme/default";
 import { Plus } from "phosphor-react";
+import { ProducerContext } from "../../Context/ProducerContext";
+import { ProducerType } from "../../@types/producer";
 
 export function ProducerHome() {
   const [allEvents, setAllEvents] = useState<EventProps[]>([]);
@@ -45,12 +47,20 @@ export function ProducerHome() {
 
   const navigate = useNavigate();
 
+  const {saveCurrentProducerInContext} = useContext(ProducerContext)
+
   async function fetchAllEvents() {
     const response = await api.get(`events?producer_id=${producerId}`);
 
     return response;
   }
 
+  function handleLogOut() {
+    localStorage.removeItem('@itoddy-role:producer')
+    saveCurrentProducerInContext({} as ProducerType)
+
+    navigate('/iToddy_Role')
+  }
   function goToDetails(id: number) {
     navigate(`/iToddy_Role/details/${id}`);
   }
@@ -94,7 +104,7 @@ export function ProducerHome() {
           <h1>Meus Eventos</h1>
           <NavButtonWrapper>
             <SvgButton svg={profileIcon} variant="PRIMARY" />
-            <SvgButton svg={exitIcon} variant="PRIMARY" />
+            <SvgButton svg={exitIcon} variant="PRIMARY" onClick={handleLogOut}/>
           </NavButtonWrapper>
         </ProducerNav>
         <Input icon={searchIcon} placeholder="pesquisar meus eventos" />
@@ -113,7 +123,7 @@ export function ProducerHome() {
                     date={event.date}
                     img={event.img}
                     title={event.title}
-                    onClick={() => goToDetails(event.id)}
+                    onClick={() => goToDetails(Number(event.id))}
                   />
                 ))
               ) : (
@@ -129,7 +139,7 @@ export function ProducerHome() {
                     date={event.date}
                     img={event.img}
                     title={event.title}
-                    onClick={() => goToDetails(event.id)}
+                    onClick={() => goToDetails(Number(event.id))}
                   />
                 ))
               ) : (

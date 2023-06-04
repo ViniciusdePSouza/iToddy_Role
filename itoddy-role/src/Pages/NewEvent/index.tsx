@@ -106,6 +106,8 @@ export function NewEvent() {
       await api.post('/events', newEvent)
 
       alert("Parabéns! Seu evento foi criado com sucesso");
+
+      navigate('/iToddy_Role/home-producer')
     } catch (err) {
       console.log(err)
     }
