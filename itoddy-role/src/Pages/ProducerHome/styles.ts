@@ -11,7 +11,6 @@ export const Container = styled.div`
   flex-direction: column;
   align-items: center;
 
-
   position: relative;
 `;
 export const Logo = styled.img`
@@ -91,7 +90,7 @@ export const TabContent = styled(Tabs.Content)`
   gap: 1.6rem;
 
   @media (min-width: 768px) {
-    flex-direction: row
+    flex-direction: row;
   }
 `;
 
@@ -110,7 +109,7 @@ export const HomeProducerHeader = styled.header`
 `;
 
 export const AddButton = styled.button`
-  all:unset;
+  all: unset;
 
   width: 6rem;
   height: 6rem;
@@ -123,8 +122,63 @@ export const AddButton = styled.button`
 
   position: absolute;
 
-  background: linear-gradient(15deg, #9D6DE7 0%, ${({ theme }) => theme.COLORS.PURPLE_400} 57.92%, #1E0D3F 100%);
+  background: linear-gradient(
+    15deg,
+    #9d6de7 0%,
+    ${({ theme }) => theme.COLORS.PURPLE_400} 57.92%,
+    #1e0d3f 100%
+  );
 
   bottom: 10%;
   right: 5%;
-`
+`;
+
+export const NoEventsComponent = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  gap: 1.6rem;
+
+  margin-top: 65px;
+
+  text-align: center;
+  
+  > h1 {
+    font-family: "Nunito", sans-serif;
+    font-style: 600;
+    font-size: 1.8rem;
+    line-height: 2.4rem;
+
+    color: ${({ theme }) => theme.COLORS.PRIMARY};
+  }
+
+  > p {
+    font-family: "Nunito", sans-serif;
+    font-style: 400;
+    font-size: 1.6rem;
+    line-height: 2rem;
+
+    color: ${({ theme }) => theme.COLORS.GRAY_100};
+  }
+`;
+
+export const NoEventAddButton = styled.button`
+  all: unset;
+
+  width: 6rem;
+  height: 6rem;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 100%;
+
+  background: linear-gradient(
+    15deg,
+    #9d6de7 0%,
+    ${({ theme }) => theme.COLORS.PURPLE_400} 57.92%,
+    #1e0d3f 100%
+  );
+`;
