@@ -14,7 +14,7 @@ import { FormTagContainer } from "../../components/FormTagContainer";
 import { Button } from "../../components/Button";
 import TextArea from "../../components/TextArea";
 
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 
 import { api } from "../../services/api";
 
@@ -67,7 +67,7 @@ export function NewEvent() {
 
   const [isFreeEvent, setIsFreeEvent] = useState(false);
 
-  const { tag } = useContext(TagContext)
+  const { tag, saveCurrentTagInContext } = useContext(TagContext)
 
   const navigate = useNavigate();
 
@@ -116,7 +116,7 @@ export function NewEvent() {
   const handleSwitchChange = () => {
     setIsFreeEvent((prevIsFreeEvent) => !prevIsFreeEvent);
   };
-
+  
   return (
     <Container>
       <Header>

@@ -100,12 +100,17 @@ export function ProducerHome() {
   }, []);
 
   useEffect(() => {
+    if(search.trim() === '') {
+      setSearchResults([])
+      return
+    }
+
     const filteredEventsByName = allEvents.filter((event) =>
       event.title.toLowerCase().includes(search.toLowerCase())
     );
 
     setSearchResults(filteredEventsByName);
-  }, [search]);
+  }, [search, allEvents]);
 
   return (
     <>
