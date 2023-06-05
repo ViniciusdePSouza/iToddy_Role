@@ -1,8 +1,11 @@
 import {
+  AddButton,
   Container,
   HomeProducerHeader,
   Logo,
   NavButtonWrapper,
+  NoEventAddButton,
+  NoEventsComponent,
   ProducerNav,
   TabContent,
   TabList,
@@ -28,19 +31,28 @@ import { useContext, useEffect, useState } from "react";
 import { api } from "../../services/api";
 import { useNavigate } from "react-router-dom";
 
-import { ProducerContext } from "../../Context/ProducerContext";
-
 import { EventProps } from "../../@types/event";
+import { defaultTheme } from "../../styles/theme/default";
+import { Plus } from "phosphor-react";
+import { ProducerContext } from "../../Context/ProducerContext";
+import { ProducerType } from "../../@types/producer";
 
 export function ProducerHome() {
   const [allEvents, setAllEvents] = useState<EventProps[]>([]);
   const [futureEvents, setFutureEvents] = useState<EventProps[]>([]);
   const [passedEvents, setPassedEvents] = useState<EventProps[]>([]);
 
-  const producer = JSON.parse(localStorage.getItem('@itoddy-role:producer') || '')
+  const [search, setSearch] = useState("");
+  const [searchResults, setSearchResults] = useState<EventProps[]>([]);
+
+  const producer = JSON.parse(
+    localStorage.getItem("@itoddy-role:producer") || ""
+  );
   const producerId = producer.id;
 
   const navigate = useNavigate();
+
+  const { saveCurrentProducerInContext } = useContext(ProducerContext);
 
   async function fetchAllEvents() {
     const response = await api.get(`events?producer_id=${producerId}`);
@@ -48,8 +60,18 @@ export function ProducerHome() {
     return response;
   }
 
+  function handleLogOut() {
+    localStorage.removeItem("@itoddy-role:producer");
+    saveCurrentProducerInContext({} as ProducerType);
+
+    navigate("/iToddy_Role");
+  }
   function goToDetails(id: number) {
     navigate(`/iToddy_Role/details/${id}`);
+  }
+
+  function handleNewEvent() {
+    navigate("/iToddy_Role/newevent");
   }
 
   useEffect(() => {
@@ -77,6 +99,19 @@ export function ProducerHome() {
     populateAllEvents();
   }, []);
 
+  useEffect(() => {
+    if(search.trim() === '') {
+      setSearchResults([])
+      return
+    }
+
+    const filteredEventsByName = allEvents.filter((event) =>
+      event.title.toLowerCase().includes(search.toLowerCase())
+    );
+
+    setSearchResults(filteredEventsByName);
+  }, [search, allEvents]);
+
   return (
     <>
       <HomeProducerHeader>
@@ -87,50 +122,89 @@ export function ProducerHome() {
           <h1>Meus Eventos</h1>
           <NavButtonWrapper>
             <SvgButton svg={profileIcon} variant="PRIMARY" />
-            <SvgButton svg={exitIcon} variant="PRIMARY" />
+            <SvgButton
+              svg={exitIcon}
+              variant="PRIMARY"
+              onClick={handleLogOut}
+            />
           </NavButtonWrapper>
         </ProducerNav>
-        <Input icon={searchIcon} placeholder="pesquisar meus eventos" />
+        <Input
+          icon={searchIcon}
+          placeholder="pesquisar meus eventos"
+          onChange={(e) => setSearch(e.target.value)}
+        />
 
-        <TabRoot defaultValue="tab1">
-          <TabList aria-label="Gerencie seus eventos">
-            <TabTriggerWrapper>
-              <TabTrigger value="tab1">A seguir</TabTrigger>
-              <TabTrigger value="tab2">Eventos passados</TabTrigger>
-            </TabTriggerWrapper>
-            <TabContent value="tab1">
-              {futureEvents && futureEvents.length > 0 ? (
-                futureEvents.map((event) => (
-                  <EventBanner
-                    key={event.id}
-                    date={event.date}
-                    img={event.img}
-                    title={event.title}
-                    onClick={() => goToDetails(event.id)}
-                  />
-                ))
-              ) : (
-                <h1>Não há eventos ainda</h1>
-              )}
-            </TabContent>
+        {searchResults.length > 0 &&
+          searchResults.map((event) => (
+            <EventBanner
+              key={event.id}
+              date={event.date}
+              img={event.img}
+              title={event.title}
+              onClick={() => goToDetails(Number(event.id))}
+            />
+          ))}
+        {allEvents && allEvents.length > 0 ? (
+          <TabRoot defaultValue="tab1">
+            <TabList aria-label="Gerencie seus eventos">
+              <TabTriggerWrapper>
+                <TabTrigger value="tab1">A seguir</TabTrigger>
+                <TabTrigger value="tab2">Eventos passados</TabTrigger>
+              </TabTriggerWrapper>
+              <TabContent value="tab1">
+                {futureEvents.length > 0 &&
+                  futureEvents.map((event) => (
+                    <EventBanner
+                      key={event.id}
+                      date={event.date}
+                      img={event.img}
+                      title={event.title}
+                      onClick={() => goToDetails(Number(event.id))}
+                    />
+                  ))}
+              </TabContent>
 
-            <TabContent value="tab2">
-              {passedEvents && passedEvents.length > 0 ? (
-                passedEvents.map((event) => (
-                  <EventBanner
-                    key={event.id}
-                    date={event.date}
-                    img={event.img}
-                    title={event.title}
-                    onClick={() => goToDetails(event.id)}
-                  />
-                ))
-              ) : (
-                <h1>Não há eventos ainda</h1>
-              )}
-            </TabContent>
-          </TabList>
-        </TabRoot>
+              <TabContent value="tab2">
+                {passedEvents.length > 0 &&
+                  passedEvents.map((event) => (
+                    <EventBanner
+                      key={event.id}
+                      date={event.date}
+                      img={event.img}
+                      title={event.title}
+                      onClick={() => goToDetails(Number(event.id))}
+                    />
+                  ))}
+              </TabContent>
+            </TabList>
+          </TabRoot>
+        ) : (
+          <NoEventsComponent>
+            <h1>Seja bem vindo(a), {producer.id}</h1>
+            <p>
+              Toque no botão abaixo e crie o seu primeiro evento incrível com a
+              gente!
+            </p>
+            <NoEventAddButton>
+              <Plus
+                size={32}
+                color={defaultTheme.COLORS.WHITE_100}
+                onClick={handleNewEvent}
+              />
+            </NoEventAddButton>
+          </NoEventsComponent>
+        )}
+
+        {allEvents.length > 0 && (
+          <AddButton>
+            <Plus
+              size={32}
+              color={defaultTheme.COLORS.WHITE_100}
+              onClick={handleNewEvent}
+            />
+          </AddButton>
+        )}
       </Container>
     </>
   );

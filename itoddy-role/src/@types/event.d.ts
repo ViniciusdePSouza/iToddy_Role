@@ -1,7 +1,7 @@
 export interface EventProps {
     title: string;
     img: string;
-    id: number;
+    id?: number;
     place: string;
     address: string;
     about: string;
@@ -10,4 +10,5 @@ export interface EventProps {
     price: string;
     tag: string
     date: Date;
+    link: string;
 }

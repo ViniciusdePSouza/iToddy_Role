@@ -59,5 +59,9 @@ export const Container = styled.div<InputContainerProps>`
 
       outline: none;
     }
+
+    &:disabled {
+     background: #E1DAD8;
+    }
   }
 `;

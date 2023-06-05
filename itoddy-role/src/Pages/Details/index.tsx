@@ -31,7 +31,7 @@ import evenTim from "../../assets/eventim.svg";
 
 import { Button } from "../../components/Button";
 
-import { useNavigate, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 
 import { useEffect, useState } from "react";
 
@@ -134,7 +134,9 @@ export function Details() {
               </TicketInfoDiv>
 
               <div>
-                <Button title={"Comprar"} isLoading={false} />
+                <Link to={data.link}>
+                <Button title={"Comprar"} isLoading={false}/>
+                </Link>
               </div>
             </BuyTicketDiv>
 
