@@ -113,7 +113,7 @@ Error generating stack: `+i.message+`
   flex-direction: column;
   align-items: center;
 
-  background-image: url(./src/assets/background.png);
+  background-image: url(./background.png);
   background-repeat: no-repeat;
   background-size: cover;
 
@@ -288,7 +288,7 @@ Error generating stack: `+i.message+`
   flex-direction: column;
   align-items: center;
 
-  background-image: url(./src/assets/background.png);
+  background-image: url(./background.png);
   background-repeat: no-repeat;
   background-size: cover;
 
