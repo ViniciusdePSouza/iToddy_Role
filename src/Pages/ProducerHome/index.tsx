@@ -70,6 +70,10 @@ export function ProducerHome() {
     navigate(`/iToddy_Role/details/${id}`);
   }
 
+  function handleGoToHome() {
+    navigate(`/iToddy_Role`);
+  }
+
   function handleNewEvent() {
     navigate("/iToddy_Role/newevent");
   }
@@ -121,7 +125,7 @@ export function ProducerHome() {
         <ProducerNav>
           <h1>Meus Eventos</h1>
           <NavButtonWrapper>
-            <SvgButton svg={profileIcon} variant="PRIMARY" />
+            <SvgButton svg={profileIcon} variant="PRIMARY" onClick={handleGoToHome}/>
             <SvgButton
               svg={exitIcon}
               variant="PRIMARY"
