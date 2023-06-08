@@ -3,12 +3,12 @@ import {
   Container,
   DateDiv,
   HighlighEventsDiv,
-  HighlighEventsSection,
   HomeHeader,
   HomeNav,
   Logo,
   ProducerLinkDiv,
   SearchDiv,
+  Section,
 } from "./styles";
 
 import logo from "../../assets/purpleLogo.svg";
@@ -26,6 +26,7 @@ import dayjs from "dayjs";
 import { api } from "../../services/api";
 import { useNavigate } from "react-router-dom";
 import { EventBanner } from "../../components/EventBanner";
+import { EventCard } from "../../components/EventCard";
 
 export function Home() {
   const [allEvents, setAllEvents] = useState<EventProps[]>([]);
@@ -46,7 +47,7 @@ export function Home() {
     navigate("/iToddy_Role/signIn");
   }
 
-  function goToDetails(id: number) {
+  function handleSeeEventDetails(id: number) {
     navigate(`/iToddy_Role/details/${id}`);
   }
 
@@ -107,41 +108,58 @@ export function Home() {
                 date={event.date}
                 img={event.img}
                 title={event.title}
-                onClick={() => goToDetails(Number(event.id))}
+                onClick={() => handleSeeEventDetails(Number(event.id))}
               />
             ))}
         </SearchDiv>
 
-        <HighlighEventsSection>
+        <Section>
           <h1>Eventos em Destaque</h1>
           <HighlighEventsDiv>
-            <EventBanner
-              date={eventTst.date}
-              img={eventTst.img}
-              title={eventTst.title}
-            />
-            <EventBanner
-              date={eventTst.date}
-              img={eventTst.img}
-              title={eventTst.title}
-            />
-            <EventBanner
-              date={eventTst.date}
-              img={eventTst.img}
-              title={eventTst.title}
-            />
-            <EventBanner
-              date={eventTst.date}
-              img={eventTst.img}
-              title={eventTst.title}
-            />
-            <EventBanner
-              date={eventTst.date}
-              img={eventTst.img}
-              title={eventTst.title}
-            />
+            {eventTst && (
+              <>
+                <EventBanner
+                  date={eventTst.date}
+                  img={eventTst.img}
+                  title={eventTst.title}
+                />
+                <EventBanner
+                  date={eventTst.date}
+                  img={eventTst.img}
+                  title={eventTst.title}
+                />
+                <EventBanner
+                  date={eventTst.date}
+                  img={eventTst.img}
+                  title={eventTst.title}
+                />
+                <EventBanner
+                  date={eventTst.date}
+                  img={eventTst.img}
+                  title={eventTst.title}
+                />
+                <EventBanner
+                  date={eventTst.date}
+                  img={eventTst.img}
+                  title={eventTst.title}
+                />
+              </>
+            )}
           </HighlighEventsDiv>
-        </HighlighEventsSection>
+        </Section>
+
+        <Section>
+          <h1>Eventos em Destaque</h1>
+          {allEvents &&
+            allEvents.map((event) => (
+              <EventCard
+                date={event.date}
+                img={event.img}
+                title={event.title}
+                onClick={() => handleSeeEventDetails(Number(event.id))}
+              />
+            ))}
+        </Section>
       </Container>
     </>
   );

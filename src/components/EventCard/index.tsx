@@ -9,14 +9,14 @@ interface EventCardProps extends ButtonHTMLAttributes<HTMLButtonElement> {
     title:string
   }
 
-export function EventCard({title, date, img}: EventCardProps) {
+export function EventCard({title, date, img, onClick}: EventCardProps) {
 
     const dateFormatted = dayjs(date)
     .locale("pt-br")
     .format(`dddd, DD [de] MMMM - hh:mm`);
     
     return (
-        <Container>
+        <Container onClick={onClick}>
              <img src={img} alt="" />
              <InfoEvent>
                 <h1>{title}</h1>

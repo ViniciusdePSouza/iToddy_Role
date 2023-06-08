@@ -16,6 +16,10 @@ export const Container = styled.div`
     width: 100%;
     border-radius: 8px;
   }
+
+  @media (min-width: 768px) {
+    height: 5rem;
+  }
 `;
 
 export const EventSpecifications = styled.div`

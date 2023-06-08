@@ -93,10 +93,10 @@ export const SearchDiv = styled.div`
   }
 `;
 
-export const HighlighEventsSection = styled.section`
+export const Section = styled.section`
+  width: 100%;
   display: flex;
   flex-direction: column;
-  justify-content: center;
 
   margin-top: 32px;
   
@@ -130,3 +130,21 @@ export const HighlighEventsDiv = styled.div`
     border-radius: 4px; 
   }
 `;
+
+export const AllEventsSection = styled.section`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+
+  margin-top: 32px;
+
+    
+  > h1 {
+    font-family: "Nunito", sans-serif;
+    font-style: 600;
+    font-size: 2rem;
+    line-height: 2rem;
+
+    margin-bottom: 16px;
+  }
+`
