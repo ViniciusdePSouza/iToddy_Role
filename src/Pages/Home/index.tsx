@@ -14,17 +14,24 @@ import { EventProps } from "../../@types/event";
 import dayjs from "dayjs";
 
 import { api } from "../../services/api";
+import { useNavigate } from "react-router-dom";
 
 export function Home() {
     const [allEvents, setAllEvents] = useState<EventProps[]>([]);
     const [search, setSearch] = useState("");
     const [searchResults, setSearchResults] = useState<EventProps[]>([]);
 
+    const navigate = useNavigate()
+
     async function fetchAllEvents() {
         const response = await api.get(`/events`);
     
         return response;
-      }
+    }
+
+    function handleGoToProducerSignIn(){
+        navigate("/iToddy_Role/signIn");
+    }
 
     useEffect(() => {
         async function populateAllEvents() {
@@ -60,7 +67,7 @@ export function Home() {
             <h1>{dayjs(new Date()).locale('pt-br').format(`DD [de] MMMM`)}</h1>
           </DateDiv>
           <ProducerLinkDiv>
-            <SvgButton svg={profileIcon} variant="PRIMARY" />
+            <SvgButton svg={profileIcon} variant="PRIMARY" onClick={handleGoToProducerSignIn}/>
             <h2>Sou Produtor</h2>
           </ProducerLinkDiv>
         </HomeNav>

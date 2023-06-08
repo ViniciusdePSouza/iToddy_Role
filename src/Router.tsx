@@ -12,7 +12,7 @@ export function Router() {
     return(
         <Routes>
             <Route path='/iToddy_Role' element={<Home/>}/>
-            <Route path='/iToddy_Role/SignIn' element={<SignIn/>}/>
+            <Route path='/iToddy_Role/signIn' element={<SignIn/>}/>
             <Route path='/iToddy_Role/signup' element={<SignUp/>}/>
             <Route path='/iToddy_Role/login' element={<Login/>}/>
             <Route path='/iToddy_Role/home-producer' element={<ProducerHome/>}/>
