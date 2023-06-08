@@ -79,3 +79,16 @@ export const ProducerLinkDiv = styled.div`
         color: ${({theme}) => theme.COLORS.GRAY_100}
     }
 `
+
+export const SearchDiv =styled.div`
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+
+    gap: 1.6rem;
+
+    @media (min-width: 768px) {
+    flex-direction: row;
+  }
+`
