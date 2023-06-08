@@ -48,7 +48,7 @@ export function Home() {
   }
 
   function handleSeeEventDetails(id: number) {
-    navigate(`/iToddy_Role/details/${id}`);
+    navigate(`/iToddy_Role/detailsuser/${id}`);
   }
 
   useEffect(() => {
@@ -121,26 +121,25 @@ export function Home() {
                   date={eventTst.date}
                   img={eventTst.img}
                   title={eventTst.title}
+                  onClick={() => handleSeeEventDetails(Number(eventTst.id))}
                 />
                 <EventBanner
                   date={eventTst.date}
                   img={eventTst.img}
                   title={eventTst.title}
+                  onClick={() => handleSeeEventDetails(Number(eventTst.id))}
                 />
                 <EventBanner
                   date={eventTst.date}
                   img={eventTst.img}
                   title={eventTst.title}
+                  onClick={() => handleSeeEventDetails(Number(eventTst.id))}
                 />
                 <EventBanner
                   date={eventTst.date}
                   img={eventTst.img}
                   title={eventTst.title}
-                />
-                <EventBanner
-                  date={eventTst.date}
-                  img={eventTst.img}
-                  title={eventTst.title}
+                  onClick={() => handleSeeEventDetails(Number(eventTst.id))}
                 />
               </>
             )}
