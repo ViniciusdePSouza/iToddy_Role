@@ -1,6 +1,5 @@
 import { styled } from "styled-components";
 import * as Switch from "@radix-ui/react-switch";
-import * as Select from "@radix-ui/react-select";
 
 export const Container = styled.div`
   height: 100vh;

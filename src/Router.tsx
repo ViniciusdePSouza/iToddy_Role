@@ -6,11 +6,13 @@ import { ProducerHome } from './Pages/ProducerHome'
 import { Details } from './Pages/Details'
 import { EditEvent } from './Pages/EditEvent'
 import { NewEvent } from './Pages/NewEvent'
+import { Home } from './Pages/Home'
 
 export function Router() {
     return(
         <Routes>
-            <Route path='/iToddy_Role' element={<SignIn/>}/>
+            <Route path='/iToddy_Role' element={<Home/>}/>
+            <Route path='/iToddy_Role/SignIn' element={<SignIn/>}/>
             <Route path='/iToddy_Role/signup' element={<SignUp/>}/>
             <Route path='/iToddy_Role/login' element={<Login/>}/>
             <Route path='/iToddy_Role/home-producer' element={<ProducerHome/>}/>

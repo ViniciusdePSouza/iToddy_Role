@@ -90,7 +90,9 @@ export function Details() {
             />
           </div>
           <div>
-            <SvgButton svg={editIcon} variant="SECONDARY" isRounded="Rounded" onClick={() => handleGoToEditEvent(data.id)}/>
+            <SvgButton svg={editIcon} variant="SECONDARY" isRounded="Rounded" onClick={() => {
+              return handleGoToEditEvent(Number(data.id));
+            }}/>
           </div>
         </ButtonWrapper>
 

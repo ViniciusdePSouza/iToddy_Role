@@ -2,7 +2,7 @@ import { SvgButton } from "../../components/SvgButton";
 
 import closeIcon from "../../assets/closeIcon.svg";
 
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 import { useForm } from "react-hook-form";
 
@@ -14,7 +14,7 @@ import { FormTagContainer } from "../../components/FormTagContainer";
 import { Button } from "../../components/Button";
 import TextArea from "../../components/TextArea";
 
-import { useContext, useEffect, useState } from "react";
+import { useContext, useState } from "react";
 
 import { api } from "../../services/api";
 
@@ -67,7 +67,7 @@ export function NewEvent() {
 
   const [isFreeEvent, setIsFreeEvent] = useState(false);
 
-  const { tag, saveCurrentTagInContext } = useContext(TagContext)
+  const { tag } = useContext(TagContext)
 
   const navigate = useNavigate();
 
