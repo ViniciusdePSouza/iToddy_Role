@@ -2,6 +2,7 @@ import { SvgButton } from "../../components/SvgButton";
 import {
   Container,
   DateDiv,
+  HighlighEventsSection,
   HomeHeader,
   HomeNav,
   Logo,
@@ -29,6 +30,8 @@ export function Home() {
   const [allEvents, setAllEvents] = useState<EventProps[]>([]);
   const [search, setSearch] = useState("");
   const [searchResults, setSearchResults] = useState<EventProps[]>([]);
+
+  const eventTst = allEvents[0]
 
   const navigate = useNavigate();
 
@@ -107,6 +110,11 @@ export function Home() {
               />
             ))}
         </SearchDiv>
+
+        <HighlighEventsSection>
+          <EventBanner date={eventTst.date} img={eventTst.img} title={eventTst.title} />
+          <EventBanner date={eventTst.date} img={eventTst.img} title={eventTst.title} />
+        </HighlighEventsSection>
       </Container>
     </>
   );
