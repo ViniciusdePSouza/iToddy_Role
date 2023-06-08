@@ -95,14 +95,38 @@ export const SearchDiv = styled.div`
 
 export const HighlighEventsSection = styled.section`
   display: flex;
-  align-items: center;
+  flex-direction: column;
+  justify-content: center;
 
-  gap: 1.6rem;
-
+  margin-top: 32px;
+  
   > h1 {
     font-family: "Nunito", sans-serif;
     font-style: 600;
     font-size: 2rem;
-    line-height: 2dvh;
+    line-height: 2rem;
+
+    margin-bottom: 16px;
+  }
+`;
+
+export const HighlighEventsDiv = styled.div`
+  display: flex;
+  align-items: center;
+  overflow-x: auto;
+  padding-bottom: 1.6rem;
+
+  &::-webkit-scrollbar {
+    height: 8px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: ${({ theme }) => theme.COLORS.PRIMARY};
+    border-radius: 4px; 
+  }
+
+  &::-webkit-scrollbar-track {
+    background-color: #f1f1f1; 
+    border-radius: 4px; 
   }
 `;
