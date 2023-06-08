@@ -81,10 +81,10 @@ export const ProducerLinkDiv = styled.div`
 `;
 
 export const SearchDiv = styled.div`
+  width: 100%;
   display: flex;
   align-items: center;
   flex-direction: column;
-  justify-content: center;
 
   gap: 1.6rem;
 

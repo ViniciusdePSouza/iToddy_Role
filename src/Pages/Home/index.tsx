@@ -90,7 +90,7 @@ export function Home() {
               variant="PRIMARY"
               onClick={handleGoToProducerSignIn}
             />
-            <h2>Sou Produtor</h2>
+            <h2>Sou Produtor(a)</h2>
           </ProducerLinkDiv>
         </HomeNav>
 
@@ -103,8 +103,7 @@ export function Home() {
         <SearchDiv>
           {searchResults.length > 0 &&
             searchResults.map((event) => (
-              <EventBanner
-                key={event.id}
+              <EventCard
                 date={event.date}
                 img={event.img}
                 title={event.title}
