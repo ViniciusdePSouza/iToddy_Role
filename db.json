@@ -32,7 +32,8 @@
       "title": "QP no Catavento",
       "tag": "esportes",
       "img": "https://picsum.photos/350/180",
-      "link": "https://www.eventim.com.br/artist/tastesaopaulofestival/"
+      "link": "https://www.eventim.com.br/artist/tastesaopaulofestival/",
+      "hot": false
     },
     {
       "title": "Quente Pelano Sunset",
@@ -46,7 +47,8 @@
       "tag": "exposição",
       "about": "Para te aquecer nesse inverno, preparamos uma festa junina à lá Quente Pelano, no Aeroporto Carlos Prates!É claro que uma festa junina da QP não seria uma festa junina      convencional, né? Para acompanhar os tradicionais costumes da festa      de São João, preparamos intervenções artísticas de tirar o fôlego,      cenografia inédita, flash tattoo, feirinha mix com marcas e artistas locais além, é claro, de uma curadoria musical pensada para esquentar o clima da noite!",
       "date": "Sat Jul 18 2020 00:00:00 GMT-0300 (GMT-03:00)",
-      "link": "https://www.eventim.com.br/campaign/rogerwaters"
+      "link": "https://www.eventim.com.br/campaign/rogerwaters",
+      "hot": true
     },
     {
       "id": 3,
@@ -60,7 +62,8 @@
       "title": "Arraial Quente Pelano",
       "tag": "shows",
       "img": "https://picsum.photos/350/180",
-      "link": "https://www.eventim.com.br/campaign/mitafestival"
+      "link": "https://www.eventim.com.br/campaign/mitafestival",
+      "hot": true
     }
   ],
   "tags": [

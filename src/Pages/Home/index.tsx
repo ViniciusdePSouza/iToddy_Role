@@ -32,6 +32,7 @@ export function Home() {
   const [allEvents, setAllEvents] = useState<EventProps[]>([]);
   const [search, setSearch] = useState("");
   const [searchResults, setSearchResults] = useState<EventProps[]>([]);
+  const [hotEvents, setHotEvents] = useState<EventProps[]>([]);
 
   const eventTst = allEvents[0];
 
@@ -59,6 +60,12 @@ export function Home() {
 
     populateAllEvents();
   }, []);
+
+  useEffect(() => {
+    const filteredHotEvents = allEvents.filter((event) => event.hot === true)
+
+    setHotEvents(filteredHotEvents)
+  }, [allEvents, setHotEvents])
 
   useEffect(() => {
     if (search.trim() === "") {
@@ -115,33 +122,15 @@ export function Home() {
         <Section>
           <h1>Eventos em Destaque</h1>
           <HighlighEventsDiv>
-            {eventTst && (
-              <>
+            {hotEvents && (
+              hotEvents.map((event) => (
                 <EventBanner
-                  date={eventTst.date}
-                  img={eventTst.img}
-                  title={eventTst.title}
-                  onClick={() => handleSeeEventDetails(Number(eventTst.id))}
-                />
-                <EventBanner
-                  date={eventTst.date}
-                  img={eventTst.img}
-                  title={eventTst.title}
-                  onClick={() => handleSeeEventDetails(Number(eventTst.id))}
-                />
-                <EventBanner
-                  date={eventTst.date}
-                  img={eventTst.img}
-                  title={eventTst.title}
-                  onClick={() => handleSeeEventDetails(Number(eventTst.id))}
-                />
-                <EventBanner
-                  date={eventTst.date}
-                  img={eventTst.img}
-                  title={eventTst.title}
-                  onClick={() => handleSeeEventDetails(Number(eventTst.id))}
-                />
-              </>
+                date={event.date}
+                img={event.img}
+                title={event.title}
+                onClick={() => handleSeeEventDetails(Number(event.id))}
+              />
+              ))
             )}
           </HighlighEventsDiv>
         </Section>
