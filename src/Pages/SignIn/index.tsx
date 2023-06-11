@@ -21,6 +21,10 @@ export function SignIn() {
     navigate('/iToddy_Role/signup')
   }
 
+  function handleGoHome(){
+    navigate('/iToddy_Role')
+  }
+
   function handleGoToLogin() {
     navigate('/iToddy_Role/login')
   }
@@ -28,7 +32,7 @@ export function SignIn() {
   return (
     <Container>
       <SvgWrapper>
-        <SvgButton svg={closeSVG} variant="SECONDARY" isRounded="Rounded" />
+        <SvgButton svg={closeSVG} variant="SECONDARY" isRounded="Rounded" onClick={handleGoHome}/>
       </SvgWrapper>
 
       <Logo src={logo} alt="Logo Role" />

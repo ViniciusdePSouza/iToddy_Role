@@ -9,7 +9,7 @@ export const Container = styled.div`
   flex-direction: column;
   align-items: center;
 
-  background-image: url(./src/assets/background.png);
+  background-image: url(./background.png);
   background-repeat: no-repeat;
   background-size: cover;
 

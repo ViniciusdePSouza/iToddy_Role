@@ -24,7 +24,6 @@ import {
 } from "./styles";
 
 import closeIcon from "../../assets/closeIcon.svg";
-import editIcon from "../../assets/edit.svg";
 import pin from "../../assets/pin.png";
 import ticket from "../../assets/ticket.svg";
 import evenTim from "../../assets/eventim.svg";
@@ -41,7 +40,7 @@ import { EventProps } from "../../@types/event";
 
 import dayjs from "dayjs";
 
-export function Details() {
+export function DetailsUser() {
   const navigate = useNavigate();
   const [data, setData] = useState<EventProps>({} as EventProps);
   const [showModal, setShowModal] = useState(false);
@@ -52,10 +51,6 @@ export function Details() {
 
   function handleGoBack() {
     navigate(-1);
-  }
-
-  function handleGoToEditEvent(id: number){
-    navigate(`/iToddy_Role/details/edit/${id}`)
   }
 
   function toggleModal() {
@@ -88,11 +83,6 @@ export function Details() {
               isRounded="Rounded"
               onClick={handleGoBack}
             />
-          </div>
-          <div>
-            <SvgButton svg={editIcon} variant="SECONDARY" isRounded="Rounded" onClick={() => {
-              return handleGoToEditEvent(Number(data.id));
-            }}/>
           </div>
         </ButtonWrapper>
 

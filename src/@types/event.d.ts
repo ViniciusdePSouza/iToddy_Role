@@ -11,4 +11,5 @@ export interface EventProps {
     tag: string
     date: Date;
     link: string;
+    hot: boolean
 }

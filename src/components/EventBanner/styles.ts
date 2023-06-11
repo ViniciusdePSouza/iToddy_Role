@@ -10,9 +10,15 @@ export const Container = styled.div`
   border-radius: 8px;
   position: relative;
 
+  flex-shrink: 0;
+
   >img{
     width: 100%;
     border-radius: 8px;
+  }
+
+  @media (min-width: 768px) {
+    height: 5rem;
   }
 `;
 
