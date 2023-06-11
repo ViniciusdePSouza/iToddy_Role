@@ -18,7 +18,7 @@ export const Container = styled.div`
   }
 
   @media (min-width: 768px) {
-    height: 5rem;
+    width: 390px;
   }
 `;
 
