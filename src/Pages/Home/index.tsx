@@ -43,7 +43,7 @@ export function Home() {
   }
 
   function handleGoToSearch(){
-    console.log('chegando')
+    navigate('/iToddy_Role/search')
   }
 
   function handleGoToProducerSignIn() {
