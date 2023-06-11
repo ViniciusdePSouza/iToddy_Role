@@ -16,6 +16,28 @@ export const Logo = styled.img`
   margin: 1rem;
 `;
 
+export const SeachRedirector = styled.button`
+  all: unset;
+
+  width: 90%;
+
+  display: flex;
+  align-items: center;
+  gap: 1.2rem;
+
+  padding: 12px;
+
+  font-family: "Nunito", sans-serif;
+  font-size: 1.6rem;
+
+  border-radius: 50px;
+
+  background-color: ${({theme}) => theme.COLORS.WHITE_100};
+  color: black;
+
+  cursor: pointer;
+`;
+
 export const HomeNav = styled.nav`
   width: 100%;
 
@@ -99,7 +121,7 @@ export const Section = styled.section`
   flex-direction: column;
 
   margin-top: 32px;
-  
+
   > h1 {
     font-family: "Nunito", sans-serif;
     font-style: 600;
@@ -122,12 +144,12 @@ export const HighlighEventsDiv = styled.div`
 
   &::-webkit-scrollbar-thumb {
     background-color: ${({ theme }) => theme.COLORS.PRIMARY};
-    border-radius: 4px; 
+    border-radius: 4px;
   }
 
   &::-webkit-scrollbar-track {
-    background-color: #f1f1f1; 
-    border-radius: 4px; 
+    background-color: #f1f1f1;
+    border-radius: 4px;
   }
 `;
 
@@ -138,7 +160,6 @@ export const AllEventsSection = styled.section`
 
   margin-top: 32px;
 
-    
   > h1 {
     font-family: "Nunito", sans-serif;
     font-style: 600;
@@ -147,4 +168,4 @@ export const AllEventsSection = styled.section`
 
     margin-bottom: 16px;
   }
-`
+`;
