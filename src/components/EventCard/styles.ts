@@ -11,9 +11,13 @@ export const Container = styled.button`
 
   padding: 8px;
 
+  margin-bottom: 8px;
+
   background-color: ${({ theme }) => theme.COLORS.WHITE_100};
 
   border-radius: 8px;
+
+  cursor: pointer;
 
   > img {
     width: 50px;
