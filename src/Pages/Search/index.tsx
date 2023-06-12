@@ -33,11 +33,18 @@ export function Search() {
   const [search, setSearch] = useState("");
   const [searchResults, setSearchResults] = useState<EventProps[]>([]);
   const [hotEvents, setHotEvents] = useState<EventProps[]>([]);
+  const [allTags, setAllTags] = useState<string []>([]);
 
   const navigate = useNavigate();
 
   async function fetchAllEvents() {
     const response = await api.get(`/events`);
+
+    return response;
+  }
+
+  async function fetchAllTags() {
+    const response = await api.get('/tags')
 
     return response;
   }
@@ -74,6 +81,16 @@ export function Search() {
     setSearchResults(filteredEventsByName);
   }, [search, allEvents]);
 
+  useEffect(() => {
+    async function populateAllTags() {
+      const response = await fetchAllTags()
+      setAllTags(response.data)
+    }
+
+    populateAllTags()
+
+  }, [])
+
   return (
     <Container>
       <Header>
@@ -93,10 +110,13 @@ export function Search() {
       </InputWrapper>
 
       <TagWrapper>
-        <TagButton title={"Festivais"} variant={"NOTACTIVE"} />
-        <TagButton title={"Festivais"} variant={"NOTACTIVE"} />
-        <TagButton title={"Festivais"} variant={"NOTACTIVE"} />
-        <TagButton title={"Festivais"} variant={"NOTACTIVE"} />
+        {
+          allTags && (
+            allTags.map(tag => (
+              <TagButton key={tag} title={tag} />
+            ))
+          )
+        }
       </TagWrapper>
 
       <HighlightsSection>

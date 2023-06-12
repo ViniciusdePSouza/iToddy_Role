@@ -3,7 +3,7 @@ import { Container, TagButtonVariantColor } from "./styles";
 
 interface TagButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   title: string;
-  variant: TagButtonVariantColor;
+  variant?: TagButtonVariantColor;
 }
 
 export function TagButton({
