@@ -3,7 +3,7 @@ import { styled } from "styled-components";
 export const Container = styled.button`
   all: unset;
 
-  width: 100%;
+  width: 85%;
   display: flex;
   align-items: center;
 
@@ -18,6 +18,8 @@ export const Container = styled.button`
   border-radius: 8px;
 
   cursor: pointer;
+
+  flex-shrink: 0;
 
   > img {
     width: 50px;

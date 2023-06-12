@@ -76,9 +76,9 @@ export const TagWrapper = styled.div`
 export const HighlightsSection = styled.div`
   width: 100%;
   display: flex;
-  align-items: center;
+  flex-direction: column;
 
-  gap: 1.6rem;
+  text-align: left;
 
   margin-top: 16px;
 
@@ -87,11 +87,23 @@ export const HighlightsSection = styled.div`
 
   background-color: ${({ theme }) => theme.COLORS.PRIMARY};
 
-  > h2 {
-    font-family: "Nunito", sans-serif;
-    font-style: 600;
-    font-size: 1.6rem;
-    line-height: 2rem;
+  border-radius: 16px;
+
+  > div {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    
+    gap: 0.8rem;
+
+    > h2 {
+      font-family: "Nunito", sans-serif;
+      font-style: 600;
+      font-size: 1.6rem;
+      line-height: 2rem;
+
+      color: ${({theme}) => theme.COLORS.WHITE_100}
+    }
   }
 `;
 
@@ -122,4 +134,13 @@ export const HighlightsCarroussel = styled.div`
     background-color: #f1f1f1;
     border-radius: 4px;
   }
+`
+
+export const AllEventsWrapper = styled.div`
+  width: 100%;
+
+  display: flex;
+  flex-direction: column;
+
+  margin-top: 34px;
 `

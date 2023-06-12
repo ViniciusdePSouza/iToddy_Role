@@ -1,22 +1,78 @@
 import { SvgButton } from "../../components/SvgButton";
-import { Container, Header, HighlightsCarroussel, HighlightsSection, InputWrapper, TagWrapper } from "./styles";
+import {
+  AllEventsWrapper,
+  Container,
+  Header,
+  HighlightsCarroussel,
+  HighlightsSection,
+  InputWrapper,
+  TagWrapper,
+} from "./styles";
 
 import closeIcon from "../../assets/closeIcon.svg";
 import listIcon from "../../assets/list.svg";
 import searchIcon from "../../assets/search.svg";
-import fireIcon from '../../assets/fire.svg'
+import fireIcon from "../../assets/fire.svg";
 
 import Input from "../../components/Input";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import { EventProps } from "../../@types/event";
+
 import { TagButton } from "../../components/TagButton";
+import { EventBanner } from "../../components/EventBanner";
+
+import { api } from "../../services/api";
+
+import { useNavigate } from "react-router-dom";
+import { EventCard } from "../../components/EventCard";
 
 export function Search() {
   const [allEvents, setAllEvents] = useState<EventProps[]>([]);
   const [search, setSearch] = useState("");
   const [searchResults, setSearchResults] = useState<EventProps[]>([]);
+  const [hotEvents, setHotEvents] = useState<EventProps[]>([]);
+
+  const navigate = useNavigate();
+
+  async function fetchAllEvents() {
+    const response = await api.get(`/events`);
+
+    return response;
+  }
+
+  function handleSeeEventDetails(id: number) {
+    navigate(`/iToddy_Role/detailsuser/${id}`);
+  }
+
+  useEffect(() => {
+    async function populateAllEvents() {
+      const response = await fetchAllEvents();
+      setAllEvents(response.data);
+    }
+
+    populateAllEvents();
+  }, []);
+
+  useEffect(() => {
+    const filteredHotEvents = allEvents.filter((event) => event.hot === true);
+
+    setHotEvents(filteredHotEvents);
+  }, [allEvents, setHotEvents]);
+
+  useEffect(() => {
+    if (search.trim() === "") {
+      setSearchResults([]);
+      return;
+    }
+
+    const filteredEventsByName = allEvents.filter((event) =>
+      event.title.toLowerCase().includes(search.toLowerCase())
+    );
+
+    setSearchResults(filteredEventsByName);
+  }, [search, allEvents]);
 
   return (
     <Container>
@@ -37,19 +93,43 @@ export function Search() {
       </InputWrapper>
 
       <TagWrapper>
-        <TagButton title={"Festivais"} variant={"NOTACTIVE"} /> 
-        <TagButton title={"Festivais"} variant={"NOTACTIVE"} /> 
-        <TagButton title={"Festivais"} variant={"NOTACTIVE"} /> 
-        <TagButton title={"Festivais"} variant={"NOTACTIVE"} /> 
+        <TagButton title={"Festivais"} variant={"NOTACTIVE"} />
+        <TagButton title={"Festivais"} variant={"NOTACTIVE"} />
+        <TagButton title={"Festivais"} variant={"NOTACTIVE"} />
+        <TagButton title={"Festivais"} variant={"NOTACTIVE"} />
       </TagWrapper>
 
       <HighlightsSection>
-        <img src={fireIcon} alt="" />
+        <div>
+          <h2>Bombando</h2>
+          <img src={fireIcon} alt="" />
+        </div>
         <HighlightsCarroussel>
-            
-        </HighlightsCarroussel> 
-
+          {hotEvents &&
+            hotEvents.map((event) => (
+              <EventCard
+                key={event.id}
+                date={event.date}
+                img={event.img}
+                title={event.title}
+                onClick={() => handleSeeEventDetails(Number(event.id))}
+              />
+            ))}
+        </HighlightsCarroussel>
       </HighlightsSection>
+
+      <AllEventsWrapper>
+          {allEvents &&
+            allEvents.map((event) => (
+              <EventCard
+              key={event.id}
+                date={event.date}
+                img={event.img}
+                title={event.title}
+                onClick={() => handleSeeEventDetails(Number(event.id))}
+              />
+            ))}
+        </AllEventsWrapper>
     </Container>
   );
 }
