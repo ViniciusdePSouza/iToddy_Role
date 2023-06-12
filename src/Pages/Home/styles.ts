@@ -12,6 +12,7 @@ export const Container = styled.div`
 
   position: relative;
 `;
+
 export const Logo = styled.img`
   margin: 1rem;
 `;
