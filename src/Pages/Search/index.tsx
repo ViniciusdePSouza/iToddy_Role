@@ -32,7 +32,14 @@ export function Search() {
   const [search, setSearch] = useState("");
   const [searchResults, setSearchResults] = useState<EventProps[]>([]);
   const [hotEvents, setHotEvents] = useState<EventProps[]>([]);
-  const [allTags, setAllTags] = useState<string []>([]);
+  const [allTags, setAllTags] = useState<string[]>([]);
+  const [activeTags, setActiveTags] = useState<string[]>([]);
+
+  const handleStoreTitle = (variant: string, title: string) => {
+    if (variant === "ACTIVE") {
+      setActiveTags((prevArray) => [...prevArray, title]);
+    }
+  };
 
   const navigate = useNavigate();
 
@@ -43,7 +50,7 @@ export function Search() {
   }
 
   async function fetchAllTags() {
-    const response = await api.get('/tags')
+    const response = await api.get("/tags");
 
     return response;
   }
@@ -82,13 +89,12 @@ export function Search() {
 
   useEffect(() => {
     async function populateAllTags() {
-      const response = await fetchAllTags()
-      setAllTags(response.data)
+      const response = await fetchAllTags();
+      setAllTags(response.data);
     }
 
-    populateAllTags()
-
-  }, [])
+    populateAllTags();
+  }, []);
 
   return (
     <Container>
@@ -105,17 +111,15 @@ export function Search() {
           <SvgButton svg={listIcon} />
         </div>
 
-        <Input icon={searchIcon} placeholder="Buscar eventos" />
+        <Input
+          icon={searchIcon}
+          placeholder="Buscar eventos"
+          onChange={(e) => setSearch(e.target.value)}
+        />
       </InputWrapper>
 
       <TagWrapper>
-        {
-          allTags && (
-            allTags.map(tag => (
-              <TagButton key={tag} title={tag} />
-            ))
-          )
-        }
+        {allTags && allTags.map((tag) => <TagButton key={tag} title={tag} />)}
       </TagWrapper>
 
       <HighlightsSection>
@@ -138,17 +142,26 @@ export function Search() {
       </HighlightsSection>
 
       <AllEventsWrapper>
-          {allEvents &&
-            allEvents.map((event) => (
+        {searchResults.length > 0
+          ? searchResults.map((event) => (
               <EventCard
-              key={event.id}
+                key={event.id}
+                date={event.date}
+                img={event.img}
+                title={event.title}
+                onClick={() => handleSeeEventDetails(Number(event.id))}
+              />
+            ))
+          : allEvents.map((event) => (
+              <EventCard
+                key={event.id}
                 date={event.date}
                 img={event.img}
                 title={event.title}
                 onClick={() => handleSeeEventDetails(Number(event.id))}
               />
             ))}
-        </AllEventsWrapper>
+      </AllEventsWrapper>
     </Container>
   );
 }
