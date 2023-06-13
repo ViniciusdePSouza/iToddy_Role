@@ -1,10 +1,12 @@
 import { ReactNode, createContext, useEffect, useState } from "react";
 
+import { TagButtonVariantColor } from "../components/TagButton/styles";
+
 interface ProducerContextType {
   tag: string | null | undefined;
   saveCurrentTagInContext: (tag: string) => void;
   activeTags: string[];
-  handleStoreTitle: (variant: string, title: string) => void;
+  handleStoreTitle: (variant: TagButtonVariantColor, title: string) => void;
 }
 
 interface TagProviderProps {
@@ -17,15 +19,23 @@ export function TagProvider({ children }: TagProviderProps) {
   const [tag, setTag] = useState<string | null | undefined>();
   const [activeTags, setActiveTags] = useState<string[]>([]);
 
-  function handleStoreTitle(variant: string, title: string) {
-    if (variant === 'ACTIVE') {
+  function handleStoreTitle(variant: TagButtonVariantColor, title: string) {
+    if (variant === "ACTIVE") {
+      if (!activeTags.includes(title)) {
         setActiveTags((prevState) => [...prevState, title]);
-    }
+      }
+    } else if (variant === "NOTACTIVE") {
+        setActiveTags((prevState) => prevState.filter(tag => tag !== title));
+      }
   }
 
   async function saveCurrentTagInContext(tag: string) {
     setTag(tag);
   }
+
+  useEffect(() => {
+    console.log(activeTags);
+  }, [activeTags]);
 
   return (
     <TagContext.Provider

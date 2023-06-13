@@ -25,6 +25,7 @@ export function TagButton({
 
     if(variant === 'ACTIVE') {
       setVariant('NOTACTIVE')
+      handleStoreTitle('NOTACTIVE', title)
     }
   }
 
