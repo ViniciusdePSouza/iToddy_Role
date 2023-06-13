@@ -21,7 +21,6 @@ import { useEffect, useState } from "react";
 import { EventProps } from "../../@types/event";
 
 import { TagButton } from "../../components/TagButton";
-import { EventBanner } from "../../components/EventBanner";
 
 import { api } from "../../services/api";
 

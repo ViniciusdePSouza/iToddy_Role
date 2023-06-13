@@ -27,6 +27,10 @@ export const Container = styled.button`
 
     border-radius: 8px;
   }
+
+  @media (min-width: 768px) {
+    width: 500px;
+  }
 `;
 
 export const InfoEvent = styled.div`

@@ -1,4 +1,4 @@
-import { ButtonHTMLAttributes } from "react";
+import { ButtonHTMLAttributes, useState } from "react";
 import { Container, TagButtonVariantColor } from "./styles";
 
 interface TagButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
@@ -8,11 +8,22 @@ interface TagButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
 
 export function TagButton({
   title,
-  variant = "NOTACTIVE",
+  variant: initialVariant = "NOTACTIVE",
   ...rest
 }: TagButtonProps) {
+  const [variant, setVariant] = useState(initialVariant);
+
+  function handleTougleVariant() {
+    setVariant(variant === "NOTACTIVE" ? "ACTIVE" : "NOTACTIVE");
+  }
+
   return (
-    <Container type="button" variant={variant} {...rest}>
+    <Container
+      type="button"
+      variant={variant}
+      onClick={handleTougleVariant}
+      {...rest}
+    >
       {title}
     </Container>
   );
