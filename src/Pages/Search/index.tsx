@@ -16,16 +16,18 @@ import fireIcon from "../../assets/fire.svg";
 
 import Input from "../../components/Input";
 
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 
 import { EventProps } from "../../@types/event";
 
 import { TagButton } from "../../components/TagButton";
+import { EventCard } from "../../components/EventCard";
 
 import { api } from "../../services/api";
 
 import { useNavigate } from "react-router-dom";
-import { EventCard } from "../../components/EventCard";
+
+import { TagContext } from "../../Context/TagContext";
 
 export function Search() {
   const [allEvents, setAllEvents] = useState<EventProps[]>([]);
@@ -33,13 +35,8 @@ export function Search() {
   const [searchResults, setSearchResults] = useState<EventProps[]>([]);
   const [hotEvents, setHotEvents] = useState<EventProps[]>([]);
   const [allTags, setAllTags] = useState<string[]>([]);
-  const [activeTags, setActiveTags] = useState<string[]>([]);
 
-  const handleStoreTitle = (variant: string, title: string) => {
-    if (variant === "ACTIVE") {
-      setActiveTags((prevArray) => [...prevArray, title]);
-    }
-  };
+  const { activeTags } = useContext(TagContext);
 
   const navigate = useNavigate();
 
