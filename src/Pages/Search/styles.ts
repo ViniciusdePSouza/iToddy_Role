@@ -187,6 +187,23 @@ export const AdvancedSearchWrapper = styled.div`
   margin-top: 34px;
 
   border-bottom: 1px solid ${({ theme }) => theme.COLORS.GRAY_100};
+
+  > p {
+    font-family: "Nunito";
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 20px;
+
+    color: #000;
+  }
+  > span {
+    font-family: "Nunito";
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 20px;
+
+    color: ${({ theme }) => theme.COLORS.GRAY_100};
+  }
 `;
 
 export const Form = styled.form`
@@ -307,4 +324,11 @@ export const ClearFilterButton = styled.button`
   font-weight: 700;
   font-size: 1.6rem;
   line-height: 2rem;
+`;
+
+export const FormValidatorAdvisor = styled.p`
+  color: ${({ theme }) => theme.COLORS.RED};
+
+  font-weight: 600;
+  font-size: 1.2rem;
 `;

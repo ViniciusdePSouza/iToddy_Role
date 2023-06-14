@@ -17,6 +17,7 @@ import {
   AdvancedSearchHeader,
   AdvancedSearchWrapper,
   ClearFilterButton,
+  FormValidatorAdvisor,
 } from "./styles";
 
 import closeIcon from "../../assets/closeIcon.svg";
@@ -73,7 +74,7 @@ export function Search() {
   const {
     register,
     handleSubmit,
-    formState: { isSubmitting },
+    formState: { errors, isSubmitting },
   } = useForm<AdvancedFormData>({
     resolver: zodResolver(advancedFormSchema),
   });
@@ -132,11 +133,11 @@ export function Search() {
   }
 
   function clearFilter() {
-    setAdvancedSearchResults([])
+    setAdvancedSearchResults([]);
   }
 
-  function goBack(){
-    navigate("/iToddy_Role")
+  function goBack() {
+    navigate("/iToddy_Role");
   }
 
   useEffect(() => {
@@ -203,6 +204,10 @@ export function Search() {
                 placeholder="Escolha uma data"
                 {...register("date")}
               />
+
+              <FormValidatorAdvisor>
+                {errors.date ? errors.date?.message : ""}
+              </FormValidatorAdvisor>
             </InputDateContainer>
           </Section>
           <Section>
@@ -245,7 +250,7 @@ export function Search() {
           Encontre os melhores <br /> rolês da cidade
         </h1>
         <div>
-          <SvgButton svg={closeIcon} onClick={goBack}/>
+          <SvgButton svg={closeIcon} onClick={goBack} />
         </div>
       </Header>
       <InputWrapper>
@@ -279,7 +284,7 @@ export function Search() {
         </HighlightsCarroussel>
       </HighlightsSection>
 
-      {advancedSearchResults.length > 0 && (
+      {advancedSearchResults.length > 0 ? (
         <AdvancedSearchWrapper>
           <AdvancedSearchHeader>
             <h2>Resultado para o filtro</h2>
@@ -299,10 +304,18 @@ export function Search() {
             />
           ))}
         </AdvancedSearchWrapper>
+      ) : (
+        <AdvancedSearchWrapper>
+          <p>
+            Não encontramos resultados para <br />o filtro selecionado.
+          </p>
+
+          <span>Voce pode conferir nossos outros eventos abaixo!</span>
+        </AdvancedSearchWrapper>
       )}
 
       <AllEventsWrapper>
-      <h2>Todos os eventos</h2>
+        <h2>Todos os eventos</h2>
         {searchResults.length > 0
           ? searchResults.map((event) => (
               <EventCard
