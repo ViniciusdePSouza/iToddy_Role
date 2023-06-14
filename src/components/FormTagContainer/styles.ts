@@ -41,6 +41,10 @@ export const ButtonWrapper = styled.button`
 
   margin-bottom: 56px;
   margin-right: 12px;
+
+  @media (min-width: 768px) {
+    margin-bottom: 24px;
+  }
 `;
 
 export const Tag = styled.div`
