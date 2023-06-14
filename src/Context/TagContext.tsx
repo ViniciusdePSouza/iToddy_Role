@@ -7,6 +7,7 @@ interface ProducerContextType {
   saveCurrentTagInContext: (tag: string) => void;
   activeTags: string[];
   handleStoreTitle: (variant: TagButtonVariantColor, title: string) => void;
+  handleResetTags: () => void
 }
 
 interface TagProviderProps {
@@ -34,13 +35,17 @@ export function TagProvider({ children }: TagProviderProps) {
     setTag(tag);
   }
 
+  function handleResetTags() {
+    setActiveTags([])
+  }
+
   useEffect(() => {
     console.log(activeTags);
   }, [activeTags]);
 
   return (
     <TagContext.Provider
-      value={{ tag, saveCurrentTagInContext, activeTags, handleStoreTitle }}
+      value={{ tag, saveCurrentTagInContext, activeTags, handleStoreTitle, handleResetTags }}
     >
       {children}
     </TagContext.Provider>

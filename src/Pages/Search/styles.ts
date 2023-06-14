@@ -44,7 +44,7 @@ export const AdvancedSearchHeader = styled.header`
   > h2 {
     font-family: "Nunito", sans-serif;
     font-style: 600;
-    font-size: 1.8rem;
+    font-size: 2.4rem;
     line-height: 1.6rem;
 
     color: ${({ theme }) => theme.COLORS.GRAY_100};
@@ -189,20 +189,26 @@ export const AdvancedSearchWrapper = styled.div`
   border-bottom: 1px solid ${({ theme }) => theme.COLORS.GRAY_100};
 
   > p {
+    text-align: center;
     font-family: "Nunito";
     font-weight: 600;
     font-size: 16px;
     line-height: 20px;
 
     color: #000;
+
+    margin-bottom: 16px;
   }
   > span {
+    text-align: center;
     font-family: "Nunito";
     font-weight: 600;
     font-size: 16px;
     line-height: 20px;
 
     color: ${({ theme }) => theme.COLORS.GRAY_100};
+
+    margin-bottom: 32px;
   }
 `;
 

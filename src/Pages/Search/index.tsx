@@ -68,6 +68,7 @@ export function Search() {
   const [hotEvents, setHotEvents] = useState<EventProps[]>([]);
   const [allTags, setAllTags] = useState<string[]>([]);
   const [show, setShow] = useState(false);
+  const [showAdvancedSearch, setShowAdvancedSearch] = useState(false)
 
   const [priceAdvancedForm, setpriceAdvancedForm] = useState(0);
 
@@ -79,7 +80,7 @@ export function Search() {
     resolver: zodResolver(advancedFormSchema),
   });
 
-  const { activeTags } = useContext(TagContext);
+  const { activeTags, handleResetTags } = useContext(TagContext);
 
   const navigate = useNavigate();
 
@@ -114,7 +115,12 @@ export function Search() {
       return obj.tags.some((tag) => eventTags.includes(tag.toLowerCase()));
     });
 
+    if(filteredEventsByTag.length === 0) {
+      alert('nao encontramos nenhum evento com os filtros desejados :c. Mas voce pode olhar todos os nosso eventos abaixo!')
+    }
+
     setAdvancedSearchResults(filteredEventsByTag);
+    handleResetTags()
     setShow(false);
   }
 
@@ -133,6 +139,7 @@ export function Search() {
   }
 
   function clearFilter() {
+    handleResetTags()
     setAdvancedSearchResults([]);
   }
 
@@ -222,8 +229,8 @@ export function Search() {
               defaultValue={[0]}
               max={500}
               step={10}
-              onValueChange={(value: number) => {
-                setpriceAdvancedForm(value);
+              onValueChange={(value: number[]) => {
+                setpriceAdvancedForm(value[0]);
               }}
             >
               <SliderTrack>
@@ -284,7 +291,8 @@ export function Search() {
         </HighlightsCarroussel>
       </HighlightsSection>
 
-      {advancedSearchResults.length > 0 ? (
+
+      {advancedSearchResults.length > 0 && (
         <AdvancedSearchWrapper>
           <AdvancedSearchHeader>
             <h2>Resultado para o filtro</h2>
@@ -303,14 +311,6 @@ export function Search() {
               onClick={() => handleSeeEventDetails(Number(event.id))}
             />
           ))}
-        </AdvancedSearchWrapper>
-      ) : (
-        <AdvancedSearchWrapper>
-          <p>
-            Não encontramos resultados para <br />o filtro selecionado.
-          </p>
-
-          <span>Voce pode conferir nossos outros eventos abaixo!</span>
         </AdvancedSearchWrapper>
       )}
 
