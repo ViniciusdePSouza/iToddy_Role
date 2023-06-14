@@ -39,6 +39,23 @@ import { TagContext } from "../../Context/TagContext";
 import { Section } from "../Home/styles";
 import { Button } from "../../components/Button";
 
+import { z } from "zod";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useForm } from "react-hook-form";
+
+const advancedFormSchema = z.object({
+  date: z
+  .string()
+  .refine((value) => {
+    const date = new Date(value);
+    return !isNaN(date.getTime());
+  }, "A data do evento é inválida")
+  .transform((value) => new Date(value)),
+  // price: z.number().min(0).max(500)
+})
+
+type AdvancedFormData = z.infer<typeof advancedFormSchema>
+
 export function Search() {
   const [allEvents, setAllEvents] = useState<EventProps[]>([]);
   const [search, setSearch] = useState("");
@@ -46,6 +63,16 @@ export function Search() {
   const [hotEvents, setHotEvents] = useState<EventProps[]>([]);
   const [allTags, setAllTags] = useState<string[]>([]);
   const [show, setShow] = useState(false);
+
+  const [priceAdvancedForm, setpriceAdvancedForm] = useState(0)
+
+  const {
+    register,
+    handleSubmit,
+    formState: { isSubmitting },
+  } = useForm<AdvancedFormData>({
+    resolver: zodResolver(advancedFormSchema)
+  });
 
   const { activeTags } = useContext(TagContext);
 
@@ -55,6 +82,15 @@ export function Search() {
     const response = await api.get(`/events`);
 
     return response;
+  }
+
+  function handleAdvancedSearch(data: AdvancedFormData) {
+    const obj = {
+      date: data.date,
+      tags: activeTags,
+      price: Number(priceAdvancedForm)
+    }
+    console.log(obj)
   }
 
   function toggleShow() {
@@ -119,7 +155,7 @@ export function Search() {
           </div>
         </Header>
 
-        <Form>
+        <Form onSubmit={handleSubmit(handleAdvancedSearch)}>
           <Section>
             <h2>Por tipo</h2>
 
@@ -131,7 +167,7 @@ export function Search() {
           <Section>
             <h2>Por Data</h2>
             <InputDateContainer>
-              <Input type="date" placeholder="Escolha uma data" />
+              <Input type="date" placeholder="Escolha uma data" {...register('date')}/>
             </InputDateContainer>
           </Section>
           <Section>
@@ -142,7 +178,7 @@ export function Search() {
               <span>+ de R$500,00</span>
             </Label>
 
-            <SliderRoot defaultValue={[0]} max={500} step={1}>
+            <SliderRoot defaultValue={[0]} max={500} step={10} onValueChange={(value: number) => { setpriceAdvancedForm(value) }}>
               <SliderTrack>
                 <SliderRange />
               </SliderTrack>
@@ -150,7 +186,7 @@ export function Search() {
             </SliderRoot>
           </Section>
 
-          <Button title="Aplicar Filtros" isLoading={false} />
+          <Button type="submit" title="Aplicar Filtros" isLoading={isSubmitting} />
         </Form>
       </Container>
     );
