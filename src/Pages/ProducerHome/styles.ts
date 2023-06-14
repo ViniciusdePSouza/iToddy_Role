@@ -129,6 +129,8 @@ export const AddButton = styled.button`
     #1e0d3f 100%
   );
 
+  cursor: pointer;
+
   bottom: 10%;
   right: 5%;
 `;
