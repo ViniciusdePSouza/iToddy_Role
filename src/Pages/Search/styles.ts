@@ -32,6 +32,28 @@ export const Header = styled.header`
     width: 20%;
   }
 `;
+export const AdvancedSearchHeader = styled.header`
+  width: 100%;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  margin-bottom: 16px;
+
+  > h2 {
+    font-family: "Nunito", sans-serif;
+    font-style: 600;
+    font-size: 1.8rem;
+    line-height: 1.6rem;
+
+    color: ${({ theme }) => theme.COLORS.GRAY_100};
+  }
+
+  > div {
+    width: 20%;
+  }
+`;
 
 export const InputWrapper = styled.div`
   width: 100%;
@@ -144,6 +166,27 @@ export const AllEventsWrapper = styled.div`
   flex-direction: column;
 
   margin-top: 34px;
+
+  > h2 {
+    font-family: "Nunito", sans-serif;
+    font-style: 600;
+    font-size: 1.8rem;
+    line-height: 1.6rem;
+
+    color: ${({ theme }) => theme.COLORS.GRAY_100};
+
+    margin-bottom: 16px;
+  }
+`;
+export const AdvancedSearchWrapper = styled.div`
+  width: 100%;
+
+  display: flex;
+  flex-direction: column;
+
+  margin-top: 34px;
+
+  border-bottom: 1px solid ${({ theme }) => theme.COLORS.GRAY_100};
 `;
 
 export const Form = styled.form`
@@ -243,10 +286,25 @@ export const Label = styled.div`
     font-size: 1.6rem;
     line-height: 2rem;
 
-    color: ${({theme}) => theme.COLORS.GRAY_100};
+    color: ${({ theme }) => theme.COLORS.GRAY_100};
   }
 
   @media (min-width: 768px) {
     width: 35%;
   }
+`;
+
+export const ClearFilterButton = styled.button`
+  all: unset;
+
+  width: 100%;
+
+  cursor: pointer;
+
+  color: ${({ theme }) => theme.COLORS.PRIMARY};
+
+  font-family: "Nunito";
+  font-weight: 700;
+  font-size: 1.6rem;
+  line-height: 2rem;
 `;

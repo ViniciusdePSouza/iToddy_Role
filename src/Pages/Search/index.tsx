@@ -8,13 +8,15 @@ import {
   InputDateContainer,
   InputWrapper,
   TagContainer,
-  TagWrapper,
   Form,
   SliderRoot,
   SliderTrack,
   SliderRange,
   SliderThumb,
   Label,
+  AdvancedSearchHeader,
+  AdvancedSearchWrapper,
+  ClearFilterButton,
 } from "./styles";
 
 import closeIcon from "../../assets/closeIcon.svg";
@@ -45,33 +47,35 @@ import { useForm } from "react-hook-form";
 
 const advancedFormSchema = z.object({
   date: z
-  .string()
-  .refine((value) => {
-    const date = new Date(value);
-    return !isNaN(date.getTime());
-  }, "A data do evento é inválida")
-  .transform((value) => new Date(value)),
-  // price: z.number().min(0).max(500)
-})
+    .string()
+    .refine((value) => {
+      const date = new Date(value);
+      return !isNaN(date.getTime());
+    }, "A data do evento é inválida")
+    .transform((value) => new Date(value)),
+});
 
-type AdvancedFormData = z.infer<typeof advancedFormSchema>
+type AdvancedFormData = z.infer<typeof advancedFormSchema>;
 
 export function Search() {
   const [allEvents, setAllEvents] = useState<EventProps[]>([]);
   const [search, setSearch] = useState("");
   const [searchResults, setSearchResults] = useState<EventProps[]>([]);
+  const [advancedSearchResults, setAdvancedSearchResults] = useState<
+    EventProps[]
+  >([]);
   const [hotEvents, setHotEvents] = useState<EventProps[]>([]);
   const [allTags, setAllTags] = useState<string[]>([]);
   const [show, setShow] = useState(false);
 
-  const [priceAdvancedForm, setpriceAdvancedForm] = useState(0)
+  const [priceAdvancedForm, setpriceAdvancedForm] = useState(0);
 
   const {
     register,
     handleSubmit,
     formState: { isSubmitting },
   } = useForm<AdvancedFormData>({
-    resolver: zodResolver(advancedFormSchema)
+    resolver: zodResolver(advancedFormSchema),
   });
 
   const { activeTags } = useContext(TagContext);
@@ -84,38 +88,37 @@ export function Search() {
     return response;
   }
 
-  async function handleAdvancedSearch(data: AdvancedFormData) {
+  async function handleAdvancedSearch({ date }: AdvancedFormData) {
     const obj = {
-      date: data.date,
+      date,
       tags: activeTags,
-      price: Number(priceAdvancedForm)
-    }
+      price: Number(priceAdvancedForm),
+    };
 
-    const filteredEventsByPrice = allEvents.filter(event => {
-      const eventPrice = Number(event.price.replace('R$', "").replace(",", "."))
-      return eventPrice <= obj.price 
-    })
-
-    const filteredEventsByTag = allEvents.filter(event => {
-      const eventTags = event.tag.toLowerCase()
-      return obj.tags.some(tag => eventTags.includes(tag.toLowerCase()))
-    })
-
-    const filteredEventsByDate = allEvents.filter(event => {
-      const eventDate = new Date(event.date)
+    const filteredEventsByDate = allEvents.filter((event) => {
+      const eventDate = new Date(event.date);
 
       return eventDate.getTime() >= obj.date.getTime();
-    })
+    });
 
-    const advancedSearchResult = filteredEventsByPrice.concat(filteredEventsByTag, filteredEventsByDate)
-      
-    setSearchResults(advancedSearchResult)
-    setShow(false)
+    const filteredEventsByPrice = filteredEventsByDate.filter((event) => {
+      const eventPrice = Number(
+        event.price.replace("R$", "").replace(",", ".")
+      );
+      return eventPrice <= obj.price;
+    });
+
+    const filteredEventsByTag = filteredEventsByPrice.filter((event) => {
+      const eventTags = event.tag.toLowerCase();
+      return obj.tags.some((tag) => eventTags.includes(tag.toLowerCase()));
+    });
+
+    setAdvancedSearchResults(filteredEventsByTag);
+    setShow(false);
   }
 
   function toggleShow() {
     setShow((state) => (state = !state));
-    console.log(show);
   }
 
   async function fetchAllTags() {
@@ -126,6 +129,14 @@ export function Search() {
 
   function handleSeeEventDetails(id: number) {
     navigate(`/iToddy_Role/detailsuser/${id}`);
+  }
+
+  function clearFilter() {
+    setAdvancedSearchResults([])
+  }
+
+  function goBack(){
+    navigate("/iToddy_Role")
   }
 
   useEffect(() => {
@@ -187,7 +198,11 @@ export function Search() {
           <Section>
             <h2>Por Data</h2>
             <InputDateContainer>
-              <Input type="date" placeholder="Escolha uma data" {...register('date')}/>
+              <Input
+                type="date"
+                placeholder="Escolha uma data"
+                {...register("date")}
+              />
             </InputDateContainer>
           </Section>
           <Section>
@@ -198,7 +213,14 @@ export function Search() {
               <span>+ de R$500,00</span>
             </Label>
 
-            <SliderRoot defaultValue={[0]} max={500} step={10} onValueChange={(value: number) => { setpriceAdvancedForm(value) }}>
+            <SliderRoot
+              defaultValue={[0]}
+              max={500}
+              step={10}
+              onValueChange={(value: number) => {
+                setpriceAdvancedForm(value);
+              }}
+            >
               <SliderTrack>
                 <SliderRange />
               </SliderTrack>
@@ -206,7 +228,11 @@ export function Search() {
             </SliderRoot>
           </Section>
 
-          <Button type="submit" title="Aplicar Filtros" isLoading={isSubmitting} />
+          <Button
+            type="submit"
+            title="Aplicar Filtros"
+            isLoading={isSubmitting}
+          />
         </Form>
       </Container>
     );
@@ -219,7 +245,7 @@ export function Search() {
           Encontre os melhores <br /> rolês da cidade
         </h1>
         <div>
-          <SvgButton svg={closeIcon} />
+          <SvgButton svg={closeIcon} onClick={goBack}/>
         </div>
       </Header>
       <InputWrapper>
@@ -233,10 +259,6 @@ export function Search() {
           onChange={(e) => setSearch(e.target.value)}
         />
       </InputWrapper>
-
-      <TagWrapper>
-        {allTags && allTags.map((tag) => <TagButton key={tag} title={tag} />)}
-      </TagWrapper>
 
       <HighlightsSection>
         <div>
@@ -257,7 +279,30 @@ export function Search() {
         </HighlightsCarroussel>
       </HighlightsSection>
 
+      {advancedSearchResults.length > 0 && (
+        <AdvancedSearchWrapper>
+          <AdvancedSearchHeader>
+            <h2>Resultado para o filtro</h2>
+            <div>
+              <ClearFilterButton onClick={clearFilter}>
+                Limpar Filtro
+              </ClearFilterButton>
+            </div>
+          </AdvancedSearchHeader>
+          {advancedSearchResults.map((event) => (
+            <EventCard
+              key={event.id}
+              date={event.date}
+              img={event.img}
+              title={event.title}
+              onClick={() => handleSeeEventDetails(Number(event.id))}
+            />
+          ))}
+        </AdvancedSearchWrapper>
+      )}
+
       <AllEventsWrapper>
+      <h2>Todos os eventos</h2>
         {searchResults.length > 0
           ? searchResults.map((event) => (
               <EventCard

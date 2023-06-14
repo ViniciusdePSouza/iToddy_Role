@@ -26,7 +26,8 @@ export function TagProvider({ children }: TagProviderProps) {
       }
     } else if (variant === "NOTACTIVE") {
         setActiveTags((prevState) => prevState.filter(tag => tag !== title));
-      }
+    }
+
   }
 
   async function saveCurrentTagInContext(tag: string) {
