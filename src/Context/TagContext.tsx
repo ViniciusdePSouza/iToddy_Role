@@ -1,4 +1,4 @@
-import { ReactNode, createContext, useEffect, useState } from "react";
+import { ReactNode, createContext, useState } from "react";
 
 import { TagButtonVariantColor } from "../components/TagButton/styles";
 
@@ -32,10 +32,6 @@ export function TagProvider({ children }: TagProviderProps) {
   async function saveCurrentTagInContext(tag: string) {
     setTag(tag);
   }
-
-  useEffect(() => {
-    console.log(activeTags);
-  }, [activeTags]);
 
   return (
     <TagContext.Provider

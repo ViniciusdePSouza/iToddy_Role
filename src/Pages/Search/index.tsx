@@ -5,8 +5,16 @@ import {
   Header,
   HighlightsCarroussel,
   HighlightsSection,
+  InputDateContainer,
   InputWrapper,
+  TagContainer,
   TagWrapper,
+  Form,
+  SliderRoot,
+  SliderTrack,
+  SliderRange,
+  SliderThumb,
+  Label,
 } from "./styles";
 
 import closeIcon from "../../assets/closeIcon.svg";
@@ -28,6 +36,8 @@ import { api } from "../../services/api";
 import { useNavigate } from "react-router-dom";
 
 import { TagContext } from "../../Context/TagContext";
+import { Section } from "../Home/styles";
+import { Button } from "../../components/Button";
 
 export function Search() {
   const [allEvents, setAllEvents] = useState<EventProps[]>([]);
@@ -35,6 +45,7 @@ export function Search() {
   const [searchResults, setSearchResults] = useState<EventProps[]>([]);
   const [hotEvents, setHotEvents] = useState<EventProps[]>([]);
   const [allTags, setAllTags] = useState<string[]>([]);
+  const [show, setShow] = useState(false);
 
   const { activeTags } = useContext(TagContext);
 
@@ -44,6 +55,11 @@ export function Search() {
     const response = await api.get(`/events`);
 
     return response;
+  }
+
+  function toggleShow() {
+    setShow((state) => (state = !state));
+    console.log(show);
   }
 
   async function fetchAllTags() {
@@ -93,6 +109,53 @@ export function Search() {
     populateAllTags();
   }, []);
 
+  if (show) {
+    return (
+      <Container>
+        <Header>
+          <h1>Filtrar eventos</h1>
+          <div>
+            <SvgButton svg={closeIcon} onClick={toggleShow} />
+          </div>
+        </Header>
+
+        <Form>
+          <Section>
+            <h2>Por tipo</h2>
+
+            <TagContainer>
+              {allTags &&
+                allTags.map((tag) => <TagButton key={tag} title={tag} />)}
+            </TagContainer>
+          </Section>
+          <Section>
+            <h2>Por Data</h2>
+            <InputDateContainer>
+              <Input type="date" placeholder="Escolha uma data" />
+            </InputDateContainer>
+          </Section>
+          <Section>
+            <h2>Por preço</h2>
+
+            <Label>
+              <span>Grátis</span>
+              <span>+ de R$500,00</span>
+            </Label>
+
+            <SliderRoot defaultValue={[0]} max={500} step={1}>
+              <SliderTrack>
+                <SliderRange />
+              </SliderTrack>
+              <SliderThumb />
+            </SliderRoot>
+          </Section>
+
+          <Button title="Aplicar Filtros" isLoading={false} />
+        </Form>
+      </Container>
+    );
+  }
+
   return (
     <Container>
       <Header>
@@ -105,7 +168,7 @@ export function Search() {
       </Header>
       <InputWrapper>
         <div>
-          <SvgButton svg={listIcon} />
+          <SvgButton svg={listIcon} onClick={toggleShow} />
         </div>
 
         <Input
