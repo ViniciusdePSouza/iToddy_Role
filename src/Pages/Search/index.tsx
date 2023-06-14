@@ -84,13 +84,20 @@ export function Search() {
     return response;
   }
 
-  function handleAdvancedSearch(data: AdvancedFormData) {
+  async function handleAdvancedSearch(data: AdvancedFormData) {
     const obj = {
       date: data.date,
       tags: activeTags,
       price: Number(priceAdvancedForm)
     }
-    console.log(obj)
+
+    const filteredEventsByPrice = allEvents.filter(event => {
+      const eventPrice = Number(event.price.replace('R$', "").replace(",", "."))
+      return eventPrice <= obj.price 
+    })
+
+    console.log(filteredEventsByPrice)
+
   }
 
   function toggleShow() {
