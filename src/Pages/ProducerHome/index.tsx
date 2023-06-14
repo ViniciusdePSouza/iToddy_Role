@@ -7,6 +7,7 @@ import {
   NoEventAddButton,
   NoEventsComponent,
   ProducerNav,
+  SearchWrapper,
   TabContent,
   TabList,
   TabRoot,
@@ -104,9 +105,9 @@ export function ProducerHome() {
   }, []);
 
   useEffect(() => {
-    if(search.trim() === '') {
-      setSearchResults([])
-      return
+    if (search.trim() === "") {
+      setSearchResults([]);
+      return;
     }
 
     const filteredEventsByName = allEvents.filter((event) =>
@@ -125,7 +126,11 @@ export function ProducerHome() {
         <ProducerNav>
           <h1>Meus Eventos</h1>
           <NavButtonWrapper>
-            <SvgButton svg={profileIcon} variant="PRIMARY" onClick={handleGoToHome}/>
+            <SvgButton
+              svg={profileIcon}
+              variant="PRIMARY"
+              onClick={handleGoToHome}
+            />
             <SvgButton
               svg={exitIcon}
               variant="PRIMARY"
@@ -139,16 +144,19 @@ export function ProducerHome() {
           onChange={(e) => setSearch(e.target.value)}
         />
 
-        {searchResults.length > 0 &&
-          searchResults.map((event) => (
-            <EventBanner
-              key={event.id}
-              date={event.date}
-              img={event.img}
-              title={event.title}
-              onClick={() => goToDetails(Number(event.id))}
-            />
-          ))}
+        {searchResults.length > 0 && (
+          <SearchWrapper>
+            {searchResults.map((event) => (
+              <EventBanner
+                key={event.id}
+                date={event.date}
+                img={event.img}
+                title={event.title}
+                onClick={() => goToDetails(Number(event.id))}
+              />
+            ))}
+          </SearchWrapper>
+        )}
         {allEvents && allEvents.length > 0 ? (
           <TabRoot defaultValue="tab1">
             <TabList aria-label="Gerencie seus eventos">
