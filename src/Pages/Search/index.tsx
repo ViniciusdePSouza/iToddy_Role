@@ -96,8 +96,21 @@ export function Search() {
       return eventPrice <= obj.price 
     })
 
-    console.log(filteredEventsByPrice)
+    const filteredEventsByTag = allEvents.filter(event => {
+      const eventTags = event.tag.toLowerCase()
+      return obj.tags.some(tag => eventTags.includes(tag.toLowerCase()))
+    })
 
+    const filteredEventsByDate = allEvents.filter(event => {
+      const eventDate = new Date(event.date)
+
+      return eventDate.getTime() >= obj.date.getTime();
+    })
+
+    const advancedSearchResult = filteredEventsByPrice.concat(filteredEventsByTag, filteredEventsByDate)
+      
+    setSearchResults(advancedSearchResult)
+    setShow(false)
   }
 
   function toggleShow() {
