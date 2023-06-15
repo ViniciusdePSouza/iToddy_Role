@@ -30,8 +30,6 @@ import { defaultTheme } from "../../styles/theme/default";
 
 export function Home() {
   const [allEvents, setAllEvents] = useState<EventProps[]>([]);
-  const [search, setSearch] = useState("");
-  const [searchResults, setSearchResults] = useState<EventProps[]>([]);
   const [hotEvents, setHotEvents] = useState<EventProps[]>([]);
 
   const navigate = useNavigate();
@@ -68,20 +66,7 @@ export function Home() {
 
     setHotEvents(filteredHotEvents)
   }, [allEvents, setHotEvents])
-
-  useEffect(() => {
-    if (search.trim() === "") {
-      setSearchResults([]);
-      return;
-    }
-
-    const filteredEventsByName = allEvents.filter((event) =>
-      event.title.toLowerCase().includes(search.toLowerCase())
-    );
-
-    setSearchResults(filteredEventsByName);
-  }, [search, allEvents]);
-
+  
   return (
     <>
       <HomeHeader>

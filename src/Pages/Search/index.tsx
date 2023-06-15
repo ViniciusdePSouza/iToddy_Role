@@ -68,7 +68,6 @@ export function Search() {
   const [hotEvents, setHotEvents] = useState<EventProps[]>([]);
   const [allTags, setAllTags] = useState<string[]>([]);
   const [show, setShow] = useState(false);
-  const [showAdvancedSearch, setShowAdvancedSearch] = useState(false)
 
   const [priceAdvancedForm, setpriceAdvancedForm] = useState(0);
 
