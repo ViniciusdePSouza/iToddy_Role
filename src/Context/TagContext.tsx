@@ -39,10 +39,6 @@ export function TagProvider({ children }: TagProviderProps) {
     setActiveTags([])
   }
 
-  useEffect(() => {
-    console.log(activeTags);
-  }, [activeTags]);
-
   return (
     <TagContext.Provider
       value={{ tag, saveCurrentTagInContext, activeTags, handleStoreTitle, handleResetTags }}
