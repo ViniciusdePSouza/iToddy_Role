@@ -79,6 +79,21 @@ export const TabTrigger = styled(Tabs.Trigger)`
   }
 `;
 
+export const SearchWrapper = styled.div`
+  width: 100%;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  gap: 1.6rem;
+
+  @media (min-width: 768px) {
+    flex-direction: row;
+  }
+`;
+
 export const TabContent = styled(Tabs.Content)`
   width: 100%;
 
@@ -129,6 +144,8 @@ export const AddButton = styled.button`
     #1e0d3f 100%
   );
 
+  cursor: pointer;
+
   bottom: 10%;
   right: 5%;
 `;
@@ -143,7 +160,7 @@ export const NoEventsComponent = styled.div`
   margin-top: 65px;
 
   text-align: center;
-  
+
   > h1 {
     font-family: "Nunito", sans-serif;
     font-style: 600;

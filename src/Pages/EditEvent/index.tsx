@@ -103,7 +103,8 @@ export function EditEvent() {
       title,
       tag, 
       img: "https://picsum.photos/350/180",
-      link: data.link
+      link: data.link,
+      hot:data.hot
     };
 
     try {

@@ -7,15 +7,13 @@ import {
   HomeNav,
   Logo,
   ProducerLinkDiv,
-  SearchDiv,
+  SeachRedirector,
   Section,
 } from "./styles";
 
 import logo from "../../assets/purpleLogo.svg";
 import profileIcon from "../../assets/profile.svg";
-import searchIcon from "../../assets/search.svg";
 
-import Input from "../../components/Input";
 
 import { useEffect, useState } from "react";
 
@@ -27,6 +25,8 @@ import { api } from "../../services/api";
 import { useNavigate } from "react-router-dom";
 import { EventBanner } from "../../components/EventBanner";
 import { EventCard } from "../../components/EventCard";
+import { MagnifyingGlass } from "phosphor-react";
+import { defaultTheme } from "../../styles/theme/default";
 
 export function Home() {
   const [allEvents, setAllEvents] = useState<EventProps[]>([]);
@@ -34,14 +34,16 @@ export function Home() {
   const [searchResults, setSearchResults] = useState<EventProps[]>([]);
   const [hotEvents, setHotEvents] = useState<EventProps[]>([]);
 
-  const eventTst = allEvents[0];
-
   const navigate = useNavigate();
 
   async function fetchAllEvents() {
     const response = await api.get(`/events`);
 
     return response;
+  }
+
+  function handleGoToSearch(){
+    navigate('/iToddy_Role/search')
   }
 
   function handleGoToProducerSignIn() {
@@ -101,23 +103,10 @@ export function Home() {
           </ProducerLinkDiv>
         </HomeNav>
 
-        <Input
-          icon={searchIcon}
-          placeholder="pesquisar meus eventos"
-          onChange={(e) => setSearch(e.target.value)}
-        />
-
-        <SearchDiv>
-          {searchResults.length > 0 &&
-            searchResults.map((event) => (
-              <EventCard
-                date={event.date}
-                img={event.img}
-                title={event.title}
-                onClick={() => handleSeeEventDetails(Number(event.id))}
-              />
-            ))}
-        </SearchDiv>
+        <SeachRedirector onClick={handleGoToSearch}>
+          <MagnifyingGlass size={32} color={defaultTheme.COLORS.PRIMARY}/>
+          Encontre os melhores rolês da cidade
+        </SeachRedirector>
 
         <Section>
           <h1>Eventos em Destaque</h1>

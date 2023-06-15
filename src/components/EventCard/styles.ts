@@ -3,7 +3,7 @@ import { styled } from "styled-components";
 export const Container = styled.button`
   all: unset;
 
-  width: 100%;
+  width: 85%;
   display: flex;
   align-items: center;
 
@@ -11,15 +11,25 @@ export const Container = styled.button`
 
   padding: 8px;
 
+  margin-bottom: 8px;
+
   background-color: ${({ theme }) => theme.COLORS.WHITE_100};
 
   border-radius: 8px;
+
+  cursor: pointer;
+
+  flex-shrink: 0;
 
   > img {
     width: 50px;
     height: 50px;
 
     border-radius: 8px;
+  }
+
+  @media (min-width: 768px) {
+    width: 500px;
   }
 `;
 

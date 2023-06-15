@@ -99,7 +99,8 @@ export function NewEvent() {
       title,
       tag: String(tag), 
       img: "https://picsum.photos/350/180",
-      link
+      link,
+      hot: false
     }
 
     try {

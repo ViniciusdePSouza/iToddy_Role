@@ -8,6 +8,7 @@ import { EditEvent } from "./Pages/EditEvent";
 import { NewEvent } from "./Pages/NewEvent";
 import { Home } from "./Pages/Home";
 import { DetailsUser } from "./Pages/DetailsUser";
+import { Search } from "./Pages/Search";
 
 export function Router() {
   return (
@@ -21,6 +22,7 @@ export function Router() {
       <Route path="/iToddy_Role/detailsuser/:id" element={<DetailsUser />} />
       <Route path="/iToddy_Role/details/edit/:id" element={<EditEvent />} />
       <Route path="/iToddy_Role/newevent" element={<NewEvent />} />
+      <Route path="/iToddy_Role/search" element={<Search />} />
     </Routes>
   );
 }

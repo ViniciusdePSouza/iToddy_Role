@@ -1,26 +1,53 @@
-import { ReactNode, createContext, useState } from "react";
+import { ReactNode, createContext, useEffect, useState } from "react";
+
+import { TagButtonVariantColor } from "../components/TagButton/styles";
 
 interface ProducerContextType {
-    tag: string | null | undefined
-    saveCurrentTagInContext: (tag: string) => void
+  tag: string | null | undefined;
+  saveCurrentTagInContext: (tag: string) => void;
+  activeTags: string[];
+  handleStoreTitle: (variant: TagButtonVariantColor, title: string) => void;
+  handleResetTags: () => void
 }
 
 interface TagProviderProps {
-    children: ReactNode
+  children: ReactNode;
 }
 
-export const TagContext = createContext({} as ProducerContextType)
+export const TagContext = createContext({} as ProducerContextType);
 
-export function TagProvider({children}: TagProviderProps) {
-    const [tag, setTag] = useState<string | null | undefined>()
+export function TagProvider({ children }: TagProviderProps) {
+  const [tag, setTag] = useState<string | null | undefined>();
+  const [activeTags, setActiveTags] = useState<string[]>([]);
 
-    async function saveCurrentTagInContext(tag: string) {
-        setTag(tag)
+  function handleStoreTitle(variant: TagButtonVariantColor, title: string) {
+    if (variant === "ACTIVE") {
+      if (!activeTags.includes(title)) {
+        setActiveTags((prevState) => [...prevState, title]);
+      }
+    } else if (variant === "NOTACTIVE") {
+        setActiveTags((prevState) => prevState.filter(tag => tag !== title));
     }
 
-    return (
-        <TagContext.Provider value={{ tag, saveCurrentTagInContext }}>
-            {children}
-        </TagContext.Provider>
-    )
+  }
+
+  async function saveCurrentTagInContext(tag: string) {
+    setTag(tag);
+  }
+
+  function handleResetTags() {
+    setActiveTags([])
+  }
+
+  useEffect(() => {
+    console.log(activeTags);
+  }, [activeTags]);
+
+  return (
+    <TagContext.Provider
+      value={{ tag, saveCurrentTagInContext, activeTags, handleStoreTitle, handleResetTags }}
+    >
+      {children}
+    </TagContext.Provider>
+  );
 }

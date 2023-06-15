@@ -12,7 +12,7 @@ export const GlobalStyle = createGlobalStyle`
     }
 
     body {
-        background: ${({ theme }) => theme.COLORS.WHITE_100};
+        background: ${({ theme }) => theme.COLORS.WHITE};
     }
 
     body, input, textarea, button {
