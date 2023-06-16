@@ -24,7 +24,7 @@ import { SvgButton } from "../../components/SvgButton";
 import Input from "../../components/Input";
 import { EventBanner } from "../../components/EventBanner";
 
-import * as dayjs from "dayjs";
+import dayjs from "dayjs";
 import "dayjs/locale/pt-br";
 
 import { useContext, useEffect, useState } from "react";
