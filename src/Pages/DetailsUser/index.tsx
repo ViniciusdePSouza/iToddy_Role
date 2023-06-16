@@ -44,6 +44,7 @@ export function DetailsUser() {
   const navigate = useNavigate();
   const [data, setData] = useState<EventProps>({} as EventProps);
   const [showModal, setShowModal] = useState(false);
+  const [producerName, setProducerName] = useState('');
 
   const params = useParams();
 
@@ -70,6 +71,16 @@ export function DetailsUser() {
 
     fetchEventDetails();
   }, []);
+
+  useEffect(() => {
+    async function fetchEventProducer(){
+      const response = await api.get(`/user?=id=${producer.id}`)
+      const producerDetails = response.data[0]
+      setProducerName(producerDetails.name)
+    }
+
+    fetchEventProducer()
+  }, [])
 
   return (
     <Container>
@@ -106,7 +117,7 @@ export function DetailsUser() {
 
         <ProducerSection>
           <TitleSection>Produzido por</TitleSection>
-          <ProducerName>{producer.name}</ProducerName>
+          <ProducerName>{producerName ? producerName : ''}</ProducerName>
         </ProducerSection>
 
         <TicketDiv>
