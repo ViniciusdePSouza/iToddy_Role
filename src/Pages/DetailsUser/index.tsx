@@ -48,8 +48,6 @@ export function DetailsUser() {
 
   const params = useParams();
 
-  const producer = JSON.parse(localStorage.getItem('@itoddy-role:producer') || '')
-
   function handleGoBack() {
     navigate(-1);
   }
@@ -74,7 +72,7 @@ export function DetailsUser() {
 
   useEffect(() => {
     async function fetchEventProducer(){
-      const response = await api.get(`/user?=id=${producer.id}`)
+      const response = await api.get(`/user?=id=${data.producer_id}`)
       const producerDetails = response.data[0]
       setProducerName(producerDetails.name)
     }
