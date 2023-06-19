@@ -51,7 +51,7 @@ export function Details() {
   const producer = JSON.parse(localStorage.getItem('@itoddy-role:producer') || '')
 
   function handleGoBack() {
-    navigate(-1);
+    navigate('/iToddy_Role/home-producer');
   }
 
   function handleGoToEditEvent(id: number){

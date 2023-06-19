@@ -33,7 +33,7 @@ export const SeachRedirector = styled.button`
 
   border-radius: 50px;
 
-  background-color: ${({theme}) => theme.COLORS.WHITE_100};
+  background-color: ${({ theme }) => theme.COLORS.WHITE_100};
   color: black;
 
   cursor: pointer;

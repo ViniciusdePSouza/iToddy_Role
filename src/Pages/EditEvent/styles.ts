@@ -116,4 +116,6 @@ export const SelectGroup = styled(Select.Group)``;
 
 export const SelectPortal = styled(Select.Portal)``;
 
-
+export const SelectItem = styled(Select.Item)``;
+export const SelectItemIndicator = styled(Select.ItemIndicator)``;
+export const SelectItemText = styled(Select.ItemText)``;
