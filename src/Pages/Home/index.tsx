@@ -28,13 +28,12 @@ import { EventCard } from "../../components/EventCard";
 import { MagnifyingGlass } from "phosphor-react";
 import { defaultTheme } from "../../styles/theme/default";
 
+import { ProducerType } from "../../@types/producer";
+
 export function Home() {
   const [allEvents, setAllEvents] = useState<EventProps[]>([]);
   const [hotEvents, setHotEvents] = useState<EventProps[]>([]);
-
-  const producer = JSON.parse(
-    localStorage.getItem("@itoddy-role:producer") || ""
-  );
+  const [producerInStorage, setProducerInStorage] = useState<ProducerType>({} as ProducerType)
 
   const navigate = useNavigate();
 
@@ -49,7 +48,7 @@ export function Home() {
   }
 
   function handleGoToProducerSignIn() {
-    if(producer.id){
+    if(producerInStorage?.id){
      return navigate("/iToddy_Role/home-producer");
     }
     navigate("/iToddy_Role/signIn");
@@ -73,6 +72,14 @@ export function Home() {
 
     setHotEvents(filteredHotEvents)
   }, [allEvents, setHotEvents])
+
+  useEffect(() => {
+    const producer = JSON.parse(
+      localStorage.getItem("@itoddy-role:producer") || "{}"
+    );
+
+    setProducerInStorage(producer)
+  }, [])
   
   return (
     <>
@@ -91,7 +98,7 @@ export function Home() {
               variant="PRIMARY"
               onClick={handleGoToProducerSignIn}
             />
-            <h2>Sou Produtor(a)</h2>
+           <h2>{producerInStorage?.id ? producerInStorage.name : 'Sou Produtor(a)'}</h2>
           </ProducerLinkDiv>
         </HomeNav>
 
