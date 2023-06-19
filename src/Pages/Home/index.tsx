@@ -32,6 +32,10 @@ export function Home() {
   const [allEvents, setAllEvents] = useState<EventProps[]>([]);
   const [hotEvents, setHotEvents] = useState<EventProps[]>([]);
 
+  const producer = JSON.parse(
+    localStorage.getItem("@itoddy-role:producer") || ""
+  );
+
   const navigate = useNavigate();
 
   async function fetchAllEvents() {
@@ -45,6 +49,9 @@ export function Home() {
   }
 
   function handleGoToProducerSignIn() {
+    if(producer.id){
+     return navigate("/iToddy_Role/home-producer");
+    }
     navigate("/iToddy_Role/signIn");
   }
 
