@@ -1,5 +1,7 @@
 import { SvgButton } from "../../components/SvgButton";
 
+import { ChangeEvent, useEffect } from 'react';
+
 import closeIcon from "../../assets/closeIcon.svg";
 
 import { useNavigate } from "react-router-dom";
@@ -30,11 +32,11 @@ import {
   SwitchThumb,
   SwitchRoot,
   InputTicketPrice,
+  Select,
 } from "./styles";
 
 import dayjs from "dayjs";
 import { EventProps } from "../../@types/event";
-import { TagContext } from "../../Context/TagContext";
 
 const newEventSchema = z.object({
   title: z.string().nonempty("O nome do evento é obrigatório"),
@@ -51,10 +53,13 @@ const newEventSchema = z.object({
       return !isNaN(date.getTime());
     }, "A data do evento é inválida")
     .transform((value) => new Date(value)),
-  link: z.string().nonempty("O link do evento é obrigatório").url('Link inválido'),
-})
+  link: z
+    .string()
+    .nonempty("O link do evento é obrigatório")
+    .url("Link inválido"),
+});
 
-type NewEventFormData = z.infer<typeof newEventSchema>
+type NewEventFormData = z.infer<typeof newEventSchema>;
 
 export function NewEvent() {
   const {
@@ -62,62 +67,89 @@ export function NewEvent() {
     handleSubmit,
     formState: { errors, isSubmitting },
   } = useForm<NewEventFormData>({
-    resolver: zodResolver(newEventSchema)
+    resolver: zodResolver(newEventSchema),
   });
 
   const [isFreeEvent, setIsFreeEvent] = useState(false);
 
-  const { tag } = useContext(TagContext)
+  const [eventTag, setEventTag] = useState('')
+  const [allTags, setAllTags] = useState<string[]>([]);
 
   const navigate = useNavigate();
 
-  const producer = JSON.parse(localStorage.getItem('@itoddy-role:producer') || '')
+  const producer = JSON.parse(
+    localStorage.getItem("@itoddy-role:producer") || ""
+  );
 
   function handleGoBack() {
     navigate(-1);
   }
 
-  async function handleNewEvent({about, address, date, link, place, price, time, title}: NewEventFormData) {
+  async function fetchAllTags() {
+    const response = await api.get("/tags");
+
+    return response;
+  }
+
+  async function handleNewEvent({
+    about,
+    address,
+    date,
+    link,
+    place,
+    price,
+    time,
+    title,
+  }: NewEventFormData) {
     const dateString = dayjs(date).format("ddd MMM DD YYYY");
 
     const dateDB = new Date(`${dateString} ${time}`);
 
-    let priceDB = price
+    let priceDB = price;
 
-    if(priceDB === '') {
-      priceDB = '00,00'
+    if (priceDB === "") {
+      priceDB = "00,00";
     }
 
     const newEvent: EventProps = {
       producer_id: producer.id,
-      availableOn: 'eventim',
+      availableOn: "eventim",
       about,
       date: dateDB,
       address,
       place,
       price: priceDB,
       title,
-      tag: String(tag), 
+      tag: String(eventTag),
       img: "https://picsum.photos/350/180",
       link,
-      hot: false
-    }
+      hot: false,
+    };
 
     try {
-      await api.post('/events', newEvent)
+      await api.post("/events", newEvent);
 
       alert("Parabéns! Seu evento foi criado com sucesso");
 
-      navigate('/iToddy_Role/home-producer')
+      navigate("/iToddy_Role/home-producer");
     } catch (err) {
-      console.log(err)
+      console.log(err);
     }
   }
 
   const handleSwitchChange = () => {
     setIsFreeEvent((prevIsFreeEvent) => !prevIsFreeEvent);
   };
-  
+
+  useEffect(() => {
+    async function populateAllTags() {
+      const response = await fetchAllTags();
+      setAllTags(response.data);
+    }
+
+    populateAllTags();
+  }, [])
+
   return (
     <Container>
       <Header>
@@ -162,7 +194,14 @@ export function NewEvent() {
           </InputHourDimensions>
         </DateDiv>
 
-        <FormTagContainer tagTitle={String(tag)} />
+        <Select aria-label="Default select example" onChange={(e: ChangeEvent<HTMLInputElement>) => setEventTag(e.target.value)}>
+          <option>Selecione uma tag para o seu evento</option>
+          {
+           allTags.length > 0 ? allTags.map(tag => (
+              <option value={tag}>{tag}</option>
+            )) : ''
+          }
+        </Select>
 
         <TextArea placeholder="Fale sobre o evento" {...register("about")} />
         <FormValidatorAdvisor>

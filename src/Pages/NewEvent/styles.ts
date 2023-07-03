@@ -1,6 +1,8 @@
 import { styled } from "styled-components";
 import * as Switch from "@radix-ui/react-switch";
 
+import FormSelect from "react-bootstrap/Form";
+
 export const Container = styled.div`
   height: 100vh;
   width: 100%;
@@ -130,5 +132,39 @@ export const SwitchThumb = styled(Switch.Thumb)`
 
   &[data-state="checked"] {
     transform: translateX(36px);
+  }
+`;
+
+export const Select = styled(FormSelect.Select)`
+  height: 5rem;
+
+  width: 90%;
+
+  align-self: center;
+
+  padding: 1rem;
+
+  border: 1px solid ${({ theme }) => theme.COLORS.PRIMARY};
+
+  border-radius: 8px;
+
+  font-family: "Nunito", sans-serif;
+  font-style: 400;
+  font-size: 1.6rem;
+  line-height: 2rem;
+
+  color: ${({ theme }) => theme.COLORS.GRAY_200};
+
+  > option {
+    font-family: "Nunito", sans-serif;
+    font-style: 400;
+    font-size: 1.2rem;
+
+    color: ${({ theme }) => theme.COLORS.GRAY_200};
+
+    &:selected {
+      background-color: ${({ theme }) => theme.COLORS.PRIMARY};
+      color: ${({ theme }) => theme.COLORS.WHITE_100};
+    }
   }
 `;
