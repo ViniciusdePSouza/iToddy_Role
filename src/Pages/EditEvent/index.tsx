@@ -6,6 +6,7 @@ import {
   FormValidatorAdvisor,
   Header,
   InputHourDimensions,
+  Select,
   Title,
 } from "./styles";
 
@@ -24,7 +25,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 
 import { useForm } from "react-hook-form";
 
-import { useEffect, useState } from "react";
+import { ChangeEvent, useEffect, useState } from "react";
 
 import { EventProps } from "../../@types/event";
 
@@ -57,6 +58,8 @@ export function EditEvent() {
   
   const [data, setData] = useState<EventProps>({} as EventProps);
   const [tag, setTag] = useState('')
+  const [allTags, setAllTags] = useState<string[]>([]);
+  const [eventTag, setEventTag] = useState('')
 
   const {
     register,
@@ -73,6 +76,12 @@ export function EditEvent() {
     },
     resolver: zodResolver(editEventSchema),
   });
+
+  async function fetchAllTags() {
+    const response = await api.get("/tags");
+
+    return response;
+  }
 
   function handleGoBack() {
     navigate(-1);
@@ -101,7 +110,7 @@ export function EditEvent() {
       place,
       price,
       title,
-      tag, 
+      tag: eventTag, 
       img: "https://picsum.photos/350/180",
       link: data.link,
       hot:data.hot
@@ -117,6 +126,15 @@ export function EditEvent() {
       console.log(err);
     }
   }
+
+  useEffect(() => {
+    async function populateAllTags() {
+      const response = await fetchAllTags();
+      setAllTags(response.data);
+    }
+
+    populateAllTags();
+  }, [])
 
   useEffect(() => {
     async function fetchEventDetails() {
@@ -135,7 +153,7 @@ export function EditEvent() {
       setValue("price", data.price);
       setValue("title", data.title);
       setValue("address", data.address);
-      setTag(data.tag)
+      setEventTag(data.tag)
     }
   }, [data, setValue, tag]);
 
@@ -188,7 +206,16 @@ export function EditEvent() {
           {errors.price ? errors.price?.message : ""}
         </FormValidatorAdvisor>
 
-        <FormTagContainer tagTitle={tag}/>
+        {/* <FormTagContainer tagTitle={tag}/> */}
+
+        <Select aria-label="Default select example" onChange={(e: ChangeEvent<HTMLInputElement>) => setEventTag(e.target.value)}>
+          <option value={eventTag}>{eventTag}</option>
+          {
+           allTags.length > 0 ? allTags.map(tag => (
+              <option value={tag}>{tag}</option>
+            )) : ''
+          }
+        </Select>
 
         <TextArea placeholder="Fale sobre o evento" {...register("about")} />
         <FormValidatorAdvisor>

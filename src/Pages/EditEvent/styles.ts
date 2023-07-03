@@ -1,5 +1,6 @@
 import { styled } from "styled-components";
-import * as Select from "@radix-ui/react-select";
+
+import FormSelect from "react-bootstrap/Form";
 
 export const Container = styled.div`
   height: 100vh;
@@ -63,59 +64,36 @@ export const InputHourDimensions = styled.div`
   align-items: center;
 `;
 
-export const SelectRoot = styled(Select.Root)`
-  margin: 8px;
-`;
+export const Select = styled(FormSelect.Select)`
+  height: 5rem;
 
-export const SelectTrigger = styled(Select.Trigger)`
-  width: 65%;
+  width: 90%;
 
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  align-self: center;
 
-  gap: 1rem;
+  padding: 1rem;
 
-  font-family: "Nunito", sans-serif;
-  font-size: 1.2rem;
-  font-weight: 600;
-  line-height: 1.6rem;
-
-  color: ${({ theme }) => theme.COLORS.SECONDARY};
-
-  background-color: ${({ theme }) => theme.COLORS.WHITE};
+  border: 1px solid ${({ theme }) => theme.COLORS.PRIMARY};
 
   border-radius: 8px;
-  border: 1px solid ${({ theme }) => theme.COLORS.SECONDARY};
-`;
 
-export const SelectValue = styled(Select.Value)`
   font-family: "Nunito", sans-serif;
+  font-style: 400;
   font-size: 1.6rem;
-  font-weight: 600;
-  line-height: 1.6rem;
+  line-height: 2rem;
+
+  color: ${({ theme }) => theme.COLORS.GRAY_200};
+
+  > option {
+    font-family: "Nunito", sans-serif;
+    font-style: 400;
+    font-size: 1.2rem;
+
+    color: ${({ theme }) => theme.COLORS.GRAY_200};
+
+    &:selected {
+      background-color: ${({ theme }) => theme.COLORS.PRIMARY};
+      color: ${({ theme }) => theme.COLORS.WHITE_100};
+    }
+  }
 `;
-
-export const SelectIcon = styled(Select.Icon)``;
-
-export const SelectContent = styled(Select.Content)`
-  overflow: hidden;
-  background-color: ${({ theme }) => theme.COLORS.WHITE};
-  border-radius: 8px;
-  box-shadow: 0px 10px 38px -10px rgba(22, 23, 24, 0.35),
-    0px 10px 20px -15px rgba(22, 23, 24, 0.2);
-`;
-
-export const SelectScrollUpButton = styled(Select.ScrollUpButton)``;
-
-export const SelectViewport = styled(Select.Viewport)`
-  padding: 8px;
-`;
-
-export const SelectGroup = styled(Select.Group)``;
-
-export const SelectPortal = styled(Select.Portal)``;
-
-export const SelectItem = styled(Select.Item)``;
-export const SelectItemIndicator = styled(Select.ItemIndicator)``;
-export const SelectItemText = styled(Select.ItemText)``;

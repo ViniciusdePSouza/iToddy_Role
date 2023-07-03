@@ -12,11 +12,10 @@ import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 
 import Input from "../../components/Input";
-import { FormTagContainer } from "../../components/FormTagContainer";
 import { Button } from "../../components/Button";
 import TextArea from "../../components/TextArea";
 
-import { useContext, useState } from "react";
+import {  useState } from "react";
 
 import { api } from "../../services/api";
 
