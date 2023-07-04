@@ -67,13 +67,13 @@ export const InputHourDimensions = styled.div`
 export const Select = styled(FormSelect.Select)`
   height: 5rem;
 
-  width: 90%;
+  width: 100%;
 
   align-self: center;
 
   padding: 1rem;
 
-  border: 1px solid ${({ theme }) => theme.COLORS.PRIMARY};
+  border: 1px solid ${({ theme }) => theme.COLORS.SECONDARY};
 
   border-radius: 8px;
 
@@ -84,7 +84,7 @@ export const Select = styled(FormSelect.Select)`
 
   color: ${({ theme }) => theme.COLORS.GRAY_200};
 
-  > option {
+ option {
     font-family: "Nunito", sans-serif;
     font-style: 400;
     font-size: 1.2rem;

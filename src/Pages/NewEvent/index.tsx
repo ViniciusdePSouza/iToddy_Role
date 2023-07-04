@@ -193,7 +193,7 @@ export function NewEvent() {
           </InputHourDimensions>
         </DateDiv>
 
-        <Select aria-label="Default select example" onChange={(e: ChangeEvent<HTMLInputElement>) => setEventTag(e.target.value)}>
+        <Select aria-label="Tag do evento" onChange={(e: ChangeEvent<HTMLInputElement>) => setEventTag(e.target.value)}>
           <option>Selecione uma tag para o seu evento</option>
           {
            allTags.length > 0 ? allTags.map(tag => (

@@ -138,13 +138,13 @@ export const SwitchThumb = styled(Switch.Thumb)`
 export const Select = styled(FormSelect.Select)`
   height: 5rem;
 
-  width: 90%;
+  width: 100%;
 
   align-self: center;
 
   padding: 1rem;
 
-  border: 1px solid ${({ theme }) => theme.COLORS.PRIMARY};
+  border: 1px solid ${({ theme }) => theme.COLORS.SECONDARY};
 
   border-radius: 8px;
 

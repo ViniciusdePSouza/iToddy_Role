@@ -30,7 +30,6 @@ import { ChangeEvent, useEffect, useState } from "react";
 import { EventProps } from "../../@types/event";
 
 import { api } from "../../services/api";
-import { FormTagContainer } from "../../components/FormTagContainer";
 
 const editEventSchema = z.object({
   title: z.string().nonempty("O nome do evento é obrigatório"),
@@ -57,7 +56,6 @@ export function EditEvent() {
   const params = useParams();
   
   const [data, setData] = useState<EventProps>({} as EventProps);
-  const [tag, setTag] = useState('')
   const [allTags, setAllTags] = useState<string[]>([]);
   const [eventTag, setEventTag] = useState('')
 
@@ -155,7 +153,7 @@ export function EditEvent() {
       setValue("address", data.address);
       setEventTag(data.tag)
     }
-  }, [data, setValue, tag]);
+  }, [data, setValue]);
 
   return (
     <Container>
@@ -206,9 +204,7 @@ export function EditEvent() {
           {errors.price ? errors.price?.message : ""}
         </FormValidatorAdvisor>
 
-        {/* <FormTagContainer tagTitle={tag}/> */}
-
-        <Select aria-label="Default select example" onChange={(e: ChangeEvent<HTMLInputElement>) => setEventTag(e.target.value)}>
+        <Select aria-label="Tag do evento" onChange={(e: ChangeEvent<HTMLInputElement>) => setEventTag(e.target.value)}>
           <option value={eventTag}>{eventTag}</option>
           {
            allTags.length > 0 ? allTags.map(tag => (
