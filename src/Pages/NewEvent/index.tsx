@@ -106,9 +106,9 @@ export function NewEvent() {
 
     let priceDB = price;
 
-    if (priceDB === "") {
-      priceDB = "00,00";
-    }
+    priceDB.length > 0 ?  priceDB == `R$${price},00` : priceDB = "00,00";
+
+    console.log(priceDB);
 
     const newEvent: EventProps = {
       producer_id: producer.id,

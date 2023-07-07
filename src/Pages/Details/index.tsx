@@ -132,7 +132,7 @@ export function Details() {
               <img src={evenTim} alt="Logo da empresa que vende o ingresso" />
               <TicketInfoDiv>
                 <h2>Disponível em {data.availableOn}</h2>
-                <span>A partir de {data.price}</span>
+                <span>A partir de R${data.price},00</span>
               </TicketInfoDiv>
 
               <div>
