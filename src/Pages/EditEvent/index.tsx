@@ -97,6 +97,9 @@ export function EditEvent() {
     const dateString = dayjs(date).format("ddd MMM DD YYYY");
 
     const dateDB = new Date(`${dateString} ${time}`);
+    let priceDB = price;
+
+    priceDB.length > 0 ?  priceDB = `R$${price},00` : priceDB = "00,00";
 
     const eventUpdated: EventProps = {
       id: data.id,
@@ -106,7 +109,7 @@ export function EditEvent() {
       date: dateDB,
       address,
       place,
-      price,
+      price: priceDB,
       title,
       tag: eventTag, 
       img: "https://picsum.photos/350/180",
