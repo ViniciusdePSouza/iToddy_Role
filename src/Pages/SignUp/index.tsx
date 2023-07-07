@@ -57,6 +57,18 @@ export function SignUp() {
   }: RegisterFormData) {
     try {
       await api.post("/users", { name, email, password });
+      const { data } = await api.get(
+        `/users?email=${email}&password=${password}`
+      );
+
+      const doesProducerExists = data;
+
+      if (doesProducerExists.length > 0) {
+        const producer = doesProducerExists[0]
+        localStorage.setItem('@itoddy-role:producer', JSON.stringify(producer))
+      } else {
+        return alert("Falha ao criar o usuário, tente novamente mais tarde");
+      }
 
       alert("Conta criada com sucesso");
 
