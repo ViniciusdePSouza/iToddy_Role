@@ -60,7 +60,7 @@ export function SignUp() {
 
       alert("Conta criada com sucesso");
 
-      navigate('/iToddy_Role')
+      navigate('/iToddy_Role/home-producer')
     } catch (error) {
       console.log(error);
     }

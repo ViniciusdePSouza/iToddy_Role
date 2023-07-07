@@ -46,7 +46,7 @@ export function ProducerHome() {
   const [search, setSearch] = useState("");
   const [searchResults, setSearchResults] = useState<EventProps[]>([]);
 
-  const producer = JSON.parse(
+  const producer: ProducerType = JSON.parse(
     localStorage.getItem("@itoddy-role:producer") || ""
   );
   const producerId = producer.id;
@@ -193,7 +193,7 @@ export function ProducerHome() {
           </TabRoot>
         ) : (
           <NoEventsComponent>
-            <h1>Seja bem vindo(a), {producer.id}</h1>
+            <h1>Seja bem vindo(a), {producer.name}</h1>
             <p>
               Toque no botão abaixo e crie o seu primeiro evento incrível com a
               gente!
