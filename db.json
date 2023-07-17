@@ -64,6 +64,21 @@
       "img": "https://picsum.photos/350/180",
       "link": "https://www.eventim.com.br/campaign/mitafestival",
       "hot": true
+    },
+    {
+      "producer_id": 2,
+      "availableOn": "eventim",
+      "about": "PACOTE VIP - BACKSTAGE PIZZA PARTY\n\nIMPORTANTE\n✦ O ingresso do show está incluso no valor da experiência\n✦ Essa experiência é válida apenas para o setor PISTA VIP - CEDO OU TARDE\n\nINCLUSO\n✦ Credencial/Sticker especial\n✦ Entrada antecipada no dia do show\n✦ Acesso à passagem de som dos artistas\n✦ Área exclusiva em frente ao palco\n✦ Pizza party com a banda após o show\n✦ M&G com os artistas e direito a foto exclusiva\n✦ Poster comemorativo da tour assinado por membros da banda (edição limitada)\n\nPACOTE VIP - HOT SOUND\n\nIMPORTANTE\n✦ O ingresso do show está incluso no valor da experiência\n✦ Essa experiência é válida apenas para o setor PISTA VIP - CEDO OU TARDE\n\nINCLUSO\n✦ Essa experiência não inclui M&G com os artistas\n✦ Credencial/Sticker especial\n✦ Entrada antecipada no dia do show\n✦ Acesso a passagem de som dos artistas\n✦ Área exclusiva em frente ao palco\n✦ Poster comemorativo da tour assinado por todos os integrantes (Edição limitada)\n\nINGRESSO SOCIAL:\nValor reduzido, com a doação de 1kg de alimento não perecível, disponível para qualquer pessoa.\n\nATENÇÃO: Cada categoria de ingressos meia entrada disponíveis para este evento deverá ser utilizada pela categoria específica do beneficiário indicado, conforme previsão de lei, sendo necessária a apresentação dos documentos comprobatórios do benefício. A compra do ingresso em categoria não equivalente a sua condição pode impedir o seu acesso ao evento.\nEsteja atento às informações em seu processo de compra.",
+      "date": "2023-10-18T23:32:00.000Z",
+      "address": "Rua Herculano Pena 537,apto 201",
+      "place": "Expominas",
+      "price": "R$50,00",
+      "title": "Turne razões e Emoções ",
+      "tag": "Shows",
+      "img": "https://picsum.photos/350/180",
+      "link": "https://www.eventim.com.br/artist/nxzero/",
+      "hot": false,
+      "id": 4
     }
   ],
   "tags": [

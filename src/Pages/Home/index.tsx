@@ -132,6 +132,7 @@ export function Home() {
                 img={event.img}
                 title={event.title}
                 onClick={() => handleSeeEventDetails(Number(event.id))}
+                key={event.id}
               />
             ))}
         </Section>
